@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  max-width: 1200px; 
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.btn--primary {
+  background-color: $primary-clr;
+  padding: 10px 24px;
+  border-radius: 4px;
+}

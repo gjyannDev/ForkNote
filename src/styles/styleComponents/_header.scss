@@ -1,0 +1,23 @@
+.header__container {
+  .sub__header--container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $size-16px 0;
+
+    .header__nav {
+      display: flex;
+      gap: $size-32px;
+
+      p {
+        font-weight: 600;
+      }
+    }
+
+    .header__container--right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
