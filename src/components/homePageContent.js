@@ -29,10 +29,14 @@ export function homePageSection(sectionName, recipeData) {
 
   section_title.textContent = sectionName;
 
-  //TODO: Then check the section name to give the appropriate data and make sure access it by index
-
   //Append recipe card here
-  section_contents.appendChild(recipeCardOne(sectionName, recipeData));
+  if (sectionName === "Today's Picks") {
+    section_contents.appendChild(recipeCardOne(sectionName, recipeData[0]));
+  } else if (sectionName === "Quick & Easy Recipes") {
+    section_contents.appendChild(recipeCardOne(sectionName, recipeData[1]));
+  } else {
+    section_contents.appendChild(recipeCardOne(sectionName, recipeData[2]));
+  }
   section_container.appendChild(section_title);
   section_container.appendChild(section_contents);
 
@@ -45,6 +49,8 @@ export default function DefaultHomePageContent(recipeData) {
   home_page_container.setAttribute("class", "homepage__container");
 
   home_page_container.appendChild(homePageSection("Today's Picks", recipeData));
+  home_page_container.appendChild(homePageSection("Recently Added Custom Recipes", recipeData));
+  home_page_container.appendChild(homePageSection("Quick & Easy Recipes", recipeData));
 
   return home_page_container;
 }

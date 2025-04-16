@@ -13,3 +13,11 @@
   padding: 10px 24px;
   border-radius: 4px;
 }
+
+.save__btn {
+  background-color: $primary-clr;
+  padding: $size-4px $size-32px;
+  color: $text-white;
+  border-radius: $size-4px;
+  box-shadow: $btn-shadow-one;
+}

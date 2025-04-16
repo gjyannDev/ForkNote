@@ -54,7 +54,7 @@
 }
 
 #recipe__card--one {
-
+  // border: 1px solid red;
   h2 {
     font-size: $size-24px;
     line-height: calc($size-24px * 1.3);
@@ -71,6 +71,22 @@
   .cooking__time--container {
     display: flex;
     gap: $size-8px;
+  }
+
+  .date__time--container {
+    display: flex;
+    gap: $size-8px;
+    align-self: flex-end;
+  }
+
+  .other__details--container {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+  }
+
+  .recipe__description {
+    margin-bottom: $size-24px;
   }
 }
 
