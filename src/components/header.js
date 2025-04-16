@@ -1,4 +1,3 @@
-import plusIcon from "/src/assets/icons/plus-icon.png";
 import logoImg from "/src/assets/images/fork_note_logo.png";
 
 export default function HeaderComponent() {

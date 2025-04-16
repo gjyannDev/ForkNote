@@ -1,0 +1,24 @@
+.search__bar--container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: $size-148px;
+  padding-top: $size-32px;
+
+  #search__bar--form {
+
+    #search__bar {
+      width: 436px;
+      height: 40px;
+      padding: 14.6px 223.9px 14.6px 19.6px;
+      border-radius: $size-4px;
+      border: $form-border-4;
+    }
+
+    #search__bar:focus {
+      border: 1.5px solid $primary-clr;
+      outline: none; 
+      color: $text-primary;
+    }
+  }
+}
+
