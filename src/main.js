@@ -2,11 +2,13 @@ import "./styles/index.scss";
 import HeaderComponent from "./components/header";
 import { searchBar } from "./components/homePageContent";
 import DefaultHomePageContent from "./components/homePageContent";
+import { getSearchedRecipe } from "./components/recipesApi";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
 const content_section = document.querySelector(".section--content");
 const search_form = document.querySelector("#search__bar--form");
+const search_input = document.querySelector("#search__bar")?.value;
 
 const recipes = [
   [
@@ -107,17 +109,18 @@ search_bar_section.appendChild(searchBar());
 document.addEventListener("DOMContentLoaded", () => {
   content_section.appendChild(DefaultHomePageContent(recipes));
 
-  document.addEventListener("submit", (e) => {
+  document.addEventListener("submit", async (e) => {
     if (e.target && e.target.id === "search__bar--form") {
       e.preventDefault();
 
-      const searchBarInput = e.target.querySelector("#search__bar");
-      const checkValue = searchBarInput?.value.trim();
+      const search_bar_input = e.target.querySelector("#search__bar");
+      const search_bar_value = search_bar_input?.value.trim();
 
-      if (!checkValue) {
+      if (!search_bar_value) {
         content_section.appendChild(DefaultHomePageContent(recipes));
       } else {
-        console.log("Filtered Page");
+        const searched_recipe = await getSearchedRecipe(search_bar_value);
+
       }
     }
   });
