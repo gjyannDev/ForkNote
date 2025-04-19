@@ -110,4 +110,21 @@
   }
 }
 
+.empty__searched--container {
+  display: flex;
+  flex-direction: column;
+  gap: $size-24px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $size-96px;
+
+  p {
+    font-size: $size-20px;
+    width: 500px;
+    text-align: center;
+    line-height: calc($size-20px * 1.5);
+    font-weight: 500;
+  }
+}
+
 

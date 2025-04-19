@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         const searched_recipe = await getSearchedRecipe(search_bar_value);
 
-        console.log(searched_recipe.meals);
         content_section.replaceChildren(
           SearchedPageContent(searched_recipe.meals, value_upper_case)
         );
