@@ -47,18 +47,20 @@
   .section__contents {
 
     #card__main--container {
-      display: flex;
-      gap: $size-28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: $size-24px; 
+      row-gap: $size-48px;
     }
   }
 }
 
 #recipe__card--one {
-  // border: 1px solid red;
+  
   h2 {
     font-size: $size-24px;
     line-height: calc($size-24px * 1.3);
-    padding-bottom: $size-8px;
+    padding-bottom: $size-16px;
   }
 
   .category__text { 

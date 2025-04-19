@@ -30,12 +30,10 @@ export function homePageSection(sectionName, recipeData) {
   section_title.textContent = sectionName;
 
   //Append recipe card here
-  if (sectionName === "Today's Picks") {
+  if (sectionName === "ForkNote Original") {
     section_contents.appendChild(recipeCardOne(sectionName, recipeData[0]));
-  } else if (sectionName === "Quick & Easy Recipes") {
-    section_contents.appendChild(recipeCardOne(sectionName, recipeData[1]));
   } else {
-    section_contents.appendChild(recipeCardOne(sectionName, recipeData[2]));
+    section_contents.appendChild(recipeCardOne(sectionName, recipeData[1]));
   }
   section_container.appendChild(section_title);
   section_container.appendChild(section_contents);
@@ -48,9 +46,8 @@ export default function DefaultHomePageContent(recipeData) {
 
   home_page_container.setAttribute("class", "homepage__container");
 
-  home_page_container.appendChild(homePageSection("Today's Picks", recipeData));
+  home_page_container.appendChild(homePageSection("ForkNote Original", recipeData));
   home_page_container.appendChild(homePageSection("Recently Added Custom Recipes", recipeData));
-  home_page_container.appendChild(homePageSection("Quick & Easy Recipes", recipeData));
 
   return home_page_container;
 }
