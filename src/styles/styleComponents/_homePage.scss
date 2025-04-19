@@ -92,4 +92,22 @@
   }
 }
 
+.search__result--container {
+  display: flex;
+  flex-direction: column;
+  gap: $size-20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $size-56px;
+
+  .search__result--header {
+    font-size: $size-24px;
+  }
+
+  .search__result--text {
+    font-size: $size-20px;
+    font-weight: 600;
+  }
+}
+
 

@@ -1,6 +1,22 @@
 import { recipeCardOne } from "./recipeCard";
 
-function searchResultSection() {}
+function searchResultSection(searchedText) {
+  const search_result_container = document.createElement("div");
+  const search_result_header = document.createElement("h3");
+  const search_result_text = document.createElement("p");
+
+  search_result_container.setAttribute("class", "search__result--container");
+  search_result_header.setAttribute("class", "search__result--header");
+  search_result_text.setAttribute("class", "search__result--text");
+
+  search_result_header.textContent = "Search Result For";
+  search_result_text.textContent = searchedText;
+
+  search_result_container.appendChild(search_result_header);
+  search_result_container.appendChild(search_result_text);
+
+  return search_result_container;
+}
 
 export function searchedSection(sectionName, searchedData) {
   const section_container = document.createElement("div");
@@ -15,12 +31,13 @@ export function searchedSection(sectionName, searchedData) {
   return section_container;
 }
 
-export default function SearchedPageContent(searchedData) {
+export default function SearchedPageContent(searchedData, searchedTextValue) {
   const searched_page_container = document.createElement("div");
-  console.log(searchedData)
+  console.log(searchedData);
 
   searched_page_container.setAttribute("class", "searched__page--container");
 
+  searched_page_container.appendChild(searchResultSection(searchedTextValue));
   searched_page_container.appendChild(searchedSection("", searchedData));
 
   return searched_page_container;

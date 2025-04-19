@@ -87,14 +87,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const search_bar_input = e.target.querySelector("#search__bar");
       const search_bar_value = search_bar_input?.value.trim();
+      const value_upper_case =
+        search_bar_value.charAt(0).toUpperCase() + search_bar_value.slice(1);
 
       if (!search_bar_value) {
         content_section.replaceChildren(DefaultHomePageContent(recipes));
       } else {
         const searched_recipe = await getSearchedRecipe(search_bar_value);
 
-        console.log(searched_recipe.meals)
-        content_section.replaceChildren(SearchedPageContent(searched_recipe.meals))
+        console.log(searched_recipe.meals);
+        content_section.replaceChildren(
+          SearchedPageContent(searched_recipe.meals, value_upper_case)
+        );
       }
     }
   });
