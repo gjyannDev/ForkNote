@@ -16,6 +16,7 @@ export default function HeaderComponent() {
   header_nav_link.setAttribute("class", "header__nav");
   logo_img.setAttribute("class", "logo__img");
   add_recipe_btn.setAttribute("class", "add__recipe--btn btn--primary");
+  add_recipe_btn.setAttribute("data-modal-btn", "add_recipe");
 
   home_text.textContent = "Home";
   my_cookbook_text.textContent = "My Cookbook";

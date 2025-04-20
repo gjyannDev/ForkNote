@@ -12,6 +12,9 @@
       <section class="section--searchbar"></section>
       <section class="section--content"></section> 
     </main>
+    <div class="modal__container" id="add__modal--container" data-open-modal="add_recipe"></div>
+    <div class="modal__container" id="edit__modal--container" data-open-modal="edit_recipe"></div>
+    <div class="modal__container" id="delete__modal--container" data-open-modal="delete_recipe"></div>
     <footer class="footer__container">
       <div class="footer__contents container">
         <div class="footer__upper--contents">
@@ -19,7 +22,7 @@
             <img src="/src/assets/images/fork_note_logo.png" alt="ForkNote Logo">
             <div class="other__links--container">
               <p><a href="">About ForkNote</a></p>
-              <p><a href="">Add Recipe</a></p>
+              <p><a href="" data-modal-btn="add_recipe">Add Recipe</a></p>
               <p><a href="">My Cookbook</a></p>
             </div>
           </div>
@@ -36,9 +39,7 @@
             <h3>©2025 ForkNote, All Right Reserved.</h3>
           </div>
           <div class="lower__right--contents">
-            <div class="social__media--contents">
-              
-            </div>
+            <div class="social__media--contents"></div>
           </div>
         </div>
       </div>

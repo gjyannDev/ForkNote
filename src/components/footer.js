@@ -7,13 +7,14 @@ function callToActionFooter() {
 
   cta_container.setAttribute("class", "cta__footer--container");
   cta_text_container.setAttribute("class", "cta__text--container container");
-  add_recipe_btn.setAttribute("class", "cta__footer--btn btn--primary")
+  add_recipe_btn.setAttribute("class", "cta__footer--btn btn--primary");
+  add_recipe_btn.setAttribute("data-modal-btn", "add_recipe");
 
   cta_header_text.textContent = "Ready to cook something amazing?";
   cta_sub_header_text.textContent =
     "Whether you're in the mood to try something new or recreate a family favorite, ForkNote helps you find delicious recipes and save your own creations — all in one place.";
   add_recipe_btn.textContent = "Add Recipe";
-  
+
   cta_text_container.appendChild(cta_header_text);
   cta_text_container.appendChild(cta_sub_header_text);
   cta_container.appendChild(cta_text_container);

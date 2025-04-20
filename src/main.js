@@ -5,14 +5,15 @@ import DefaultHomePageContent from "./components/homePageContent";
 import { getSearchedRecipe } from "./components/recipesApi";
 import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
+import Modal from "./components/modal";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
 const content_section = document.querySelector(".section--content");
 const search_form = document.querySelector("#search__bar--form");
-const search_input = document.querySelector("#search__bar")?.value;
 const footer_container = document.querySelector(".footer__container");
 const footer_contents = document.querySelector(".footer__contents");
+const add_recipe_btn = document.querySelector(".add__recipe--btn");
 
 const recipes = [
   [
@@ -108,3 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //Footer
 footer_container.insertBefore(Footer(), footer_contents);
+
+//Open modal for edit, delete, and add recipe
+document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const selected_modal = e.currentTarget.getAttribute("data-modal-btn");
+
+    if (selected_modal === "add_recipe") {
+      const add_modal_container = document.getElementById("add__modal--container");
+
+      add_modal_container.appendChild(Modal("add modal"))
+    }
+  })
+})
