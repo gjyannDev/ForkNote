@@ -1,12 +1,27 @@
 .modal__container {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.95);
   z-index: 1000;
-  height: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
   margin: 0;
+  overflow-y: auto; 
 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  
+  &::-webkit-scrollbar {
+    display: none; 
+  }
+
+  &.hidden {
+    display: none !important; 
+  }
+ 
   .recipe__form {
     background-color: $bg-primary;
     padding: 3rem;
@@ -14,6 +29,7 @@
     border-radius: 0.5rem;
     width: 34.75rem;
     position: relative; 
+    margin: auto;
 
     .recipe__form--container {
       padding-top: 0;
@@ -40,22 +56,29 @@
       }
     }
 
-    .step__one--container {
+    .step__one--container, 
+    .step__two--container {
       display: flex;
       flex-direction: column;
       gap: $size-32px;
 
+      &.hidden {
+        display: none !important; 
+      }
+
       h2 {
         font-size: $size-20px;
       }
-
-      .step__one--inputs {
+      
+      .step__one--inputs, 
+      .step__two--inputs {
         display: flex;
         flex-direction: column;
         gap: $size-32px;
       }
 
-      .step__one--buttons {
+      .step__one--buttons,
+      .step__two--buttons {
         display: flex;
         gap: $size-24px;
         align-self: flex-end;

@@ -85,16 +85,16 @@ export default function Modal(modalType) {
   step_one_container.setAttribute("class", "step__one--container");
   step_one_inputs_container.setAttribute("class", "step__one--inputs");
   step_one_buttons_container.setAttribute("class", "step__one--buttons");
-  step_two_container.setAttribute("class", "step__two--container");
+  step_two_container.setAttribute("class", "step__two--container hidden");
   step_two_inputs_container.setAttribute("class", "step__two--inputs");
   step_two_buttons_container.setAttribute("class", "step__two--buttons");
   cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
   cancel_btn.setAttribute("type", "button");
   next_btn.setAttribute("class", "next__btn--modal modal__btn--primary");
   next_btn.setAttribute("type", "button");
-  add_recipe_btn.setAttribute("class", "add__btn--modal");
+  add_recipe_btn.setAttribute("class", "add__btn--modal modal__btn--primary");
   add_recipe_btn.setAttribute("type", "submit");
-  back_btn.setAttribute("class", "back__btn--modal");
+  back_btn.setAttribute("class", "back__btn--modal modal__btn--secondary");
   back_btn.setAttribute("type", "button");
   
   recipe_details_text.textContent = "Recipe Details";
@@ -141,7 +141,7 @@ export default function Modal(modalType) {
 
   recipe_form_container.appendChild(modalHeader(modalType));
   recipe_form_container.appendChild(step_one_container);
-  // recipe_form_container.appendChild(step_two_container);
+  recipe_form_container.appendChild(step_two_container);
 
   recipe_form.appendChild(recipe_form_container);
 

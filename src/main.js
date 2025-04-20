@@ -121,7 +121,7 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
       );
 
       add_modal_container.replaceChildren(Modal("add modal"));
-      
+
       showModal("modal__container")
     }
   });
@@ -130,5 +130,15 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
 document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("cancel__btn--modal")) {
     hideModal("modal__container");
+  }
+
+  if (e.target && e.target.classList.contains("next__btn--modal")) {
+    hideModal("step__one--container");
+    showModal("step__two--container");
+  }
+
+  if (e.target && e.target.classList.contains("back__btn--modal")) {
+    hideModal("step__two--container");
+    showModal("step__one--container");
   }
 });
