@@ -6,6 +6,7 @@ import { getSearchedRecipe } from "./components/recipesApi";
 import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
 import Modal from "./components/modal";
+import { hideModal, showModal } from "./components/modal";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -13,7 +14,6 @@ const content_section = document.querySelector(".section--content");
 const search_form = document.querySelector("#search__bar--form");
 const footer_container = document.querySelector(".footer__container");
 const footer_contents = document.querySelector(".footer__contents");
-const add_recipe_btn = document.querySelector(".add__recipe--btn");
 
 const recipes = [
   [
@@ -116,9 +116,19 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
     const selected_modal = e.currentTarget.getAttribute("data-modal-btn");
 
     if (selected_modal === "add_recipe") {
-      const add_modal_container = document.getElementById("add__modal--container");
+      const add_modal_container = document.getElementById(
+        "add__modal--container"
+      );
 
-      add_modal_container.appendChild(Modal("add modal"))
+      add_modal_container.replaceChildren(Modal("add modal"));
+      
+      showModal("modal__container")
     }
-  })
-})
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.classList.contains("cancel__btn--modal")) {
+    hideModal("modal__container");
+  }
+});

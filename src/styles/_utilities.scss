@@ -12,6 +12,32 @@
   background-color: $primary-clr;
   padding: 10px 24px;
   border-radius: 4px;
+  box-shadow: $btn-shadow-one;
+}
+
+
+.btn--secondary {
+  background-color: $btn-white-bg;
+  box-shadow: $btn-shadow-one;
+  border: $form-border-2;
+  padding: 10px 24px;
+  border-radius: 4px;
+}
+
+.modal__btn--primary {
+  background-color: $primary-clr;
+  padding: 10px 48px;
+  border-radius: 4px;
+  box-shadow: $btn-shadow-one;
+}
+
+.modal__btn--secondary {
+  background-color: $btn-white-bg;
+  box-shadow: $btn-shadow-one;
+  border: $form-border-2;
+  padding: 10px 48px;
+  border-radius: 4px;
+  color: $text-primary;
 }
 
 .save__btn {
@@ -20,4 +46,42 @@
   color: $text-white;
   border-radius: $size-4px;
   box-shadow: $btn-shadow-one;
+}
+
+/* styling the input */
+.input__container {
+  display: flex;
+  flex-direction: column;
+  gap: $size-4px;
+} 
+
+.input__label {
+  display: block;
+  font-size: .9rem;
+  font-weight: bold;
+  color: var(--clr-accent);
+  transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
+}
+
+.input, .text__area, .select {
+  max-width: inherit;
+  height: 36px;
+  background-color: #fdfaf6;
+  border-radius: 0.25rem;
+  padding: 0 0.6rem;
+  border: solid 1px #d5d7da;
+  font-size: 1rem;
+  transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
+}
+
+.text__area {
+  height: auto;
+  min-height: 80px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  resize: vertical;
+}
+
+.hidden {
+  display: none;
 }
