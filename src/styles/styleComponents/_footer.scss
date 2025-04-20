@@ -36,3 +36,43 @@
     margin-left: $size-96px;
   }
 }
+
+.footer__contents {
+  margin-top: $size-72px;
+  margin-bottom: $size-20px;
+
+  .footer__upper--contents {
+    margin-bottom: $size-72px;
+
+    .upper__left--content {
+      display: flex;
+      flex-direction: column;
+      gap: $size-16px;
+
+      img {
+        width: 256px;
+      }
+
+      .other__links--container {
+        display: flex;
+        gap: $size-20px;
+
+      }
+    }
+  }
+
+  .footer__lower--contents {
+    margin-top: $size-20px;
+
+    .lower__left--contents {
+      display: flex;
+      flex-direction: column;
+      gap: $size-12px;
+
+      .condition__link--container {
+        display: flex;
+        gap: $size-24px;
+      }
+    }
+  }
+}

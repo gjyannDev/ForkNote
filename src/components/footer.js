@@ -22,8 +22,6 @@ function callToActionFooter() {
   return cta_container;
 }
 
-function footerContents() {}
-
 export default function Footer() {
   const footer_sub_container = document.createElement("div");
 
