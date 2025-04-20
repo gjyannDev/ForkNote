@@ -4,12 +4,14 @@ import { searchBar } from "./components/homePageContent";
 import DefaultHomePageContent from "./components/homePageContent";
 import { getSearchedRecipe } from "./components/recipesApi";
 import SearchedPageContent from "./components/searchedPageContent";
+import Footer from "./components/footer";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
 const content_section = document.querySelector(".section--content");
 const search_form = document.querySelector("#search__bar--form");
 const search_input = document.querySelector("#search__bar")?.value;
+const footer_container = document.querySelector(".footer__container");
 
 const recipes = [
   [
@@ -78,9 +80,10 @@ header__container.appendChild(HeaderComponent());
 //Search Bar
 search_bar_section.appendChild(searchBar());
 
+
 document.addEventListener("DOMContentLoaded", () => {
   content_section.replaceChildren(DefaultHomePageContent(recipes));
-
+  
   document.addEventListener("submit", async (e) => {
     if (e.target && e.target.id === "search__bar--form") {
       e.preventDefault();
@@ -89,12 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const search_bar_value = search_bar_input?.value.trim();
       const value_upper_case =
         search_bar_value.charAt(0).toUpperCase() + search_bar_value.slice(1);
-
+        
       if (!search_bar_value) {
         content_section.replaceChildren(DefaultHomePageContent(recipes));
       } else {
         const searched_recipe = await getSearchedRecipe(search_bar_value);
-
+        
         content_section.replaceChildren(
           SearchedPageContent(searched_recipe.meals, value_upper_case)
         );
@@ -102,3 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+//Footer
+footer_container.appendChild(Footer());
