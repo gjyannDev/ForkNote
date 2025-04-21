@@ -38,13 +38,3 @@ export async function getAllCustomRecipes() {
     handleError(error, "getSearchedRecipe");
   }
 }
-
-export async function addCustomRecipe(newRecipeData) {
-  try {
-    const res = await addDoc(colRef, newRecipeData)
-
-    return res;
-  } catch (error) {
-    handleError(error, "addCustomRecipe");
-  }
-}
