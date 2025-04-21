@@ -7,7 +7,11 @@ import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
 import Modal from "./components/modal";
 import { hideModal, showModal, getFormData } from "./components/modal";
-import { addCustomRecipe, getAllCustomRecipes } from "./components/recipesApi";
+import {
+  addCustomRecipe,
+  getAllCustomRecipes,
+  getRecipeById,
+} from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
 
 const header__container = document.querySelector(".header__container");
@@ -16,6 +20,7 @@ const content_section = document.querySelector(".section--content");
 const search_form = document.querySelector("#search__bar--form");
 const footer_container = document.querySelector(".footer__container");
 const footer_contents = document.querySelector(".footer__contents");
+const card_main_container = document.querySelector("#card__main--container");
 
 const recipes = [
   [
@@ -114,11 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll("[data-nav-link]").forEach((link) => {
   link.addEventListener("click", async (e) => {
     const link_text = e.currentTarget.getAttribute("data-nav-link");
-    
+
     if (link_text === "home") {
       content_section.replaceChildren(DefaultHomePageContent(recipes));
     } else if (link_text === "myCookbook") {
-      const all_recipe = await getAllCustomRecipes()
+      const all_recipe = await getAllCustomRecipes();
 
       content_section.replaceChildren(MyCookBook(all_recipe));
     }
@@ -145,10 +150,11 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
   });
 });
 
+//TODO: Fix the cancel button on the modal because it's also appearing on the edit and also delete modal don't make it sync
 //This is the buttons for the modal
 document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("cancel__btn--modal")) {
-    hideModal("modal__container");
+    hideModal("add__modal--container", "id");
   }
 
   if (e.target && e.target.classList.contains("next__btn--modal")) {
@@ -171,10 +177,39 @@ document.addEventListener("click", (e) => {
     const params = {
       source: "custom",
       ...data,
-    }
+    };
 
     addCustomRecipe(params);
 
     hideModal("modal__container");
+  }
+});
+
+//This allow you to click specific recipe card and get it's recipe id
+document.addEventListener("click", async (e) => {
+  const recipe_card_container = e.target.closest("#card__main--container > *");
+
+  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
+    let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
+
+    const recipe = await getRecipeById(recipe_id);
+
+    //TODO: Create a page in which the user can see the recipe details etc..
+  }
+});
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-card-btn-action]");
+  const edit_modal_container = document.getElementById( "edit__modal--container");
+  if (btn) {
+    const selected_btn = btn.getAttribute("data-card-btn-action");
+
+    if (selected_btn === "edit") {
+      edit_modal_container.replaceChildren(Modal("edit modal"));
+    } else if (selected_btn === "delete") {
+      //TODO: This is for the delete action
+    } else if (selected_btn === "save") {
+      //TODO: This is for the save action
+    }
   }
 });
