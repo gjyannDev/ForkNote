@@ -112,14 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //This is where the page switching of the header nav link
 document.querySelectorAll("[data-nav-link]").forEach((link) => {
-  link.addEventListener("click", (e) => {
+  link.addEventListener("click", async (e) => {
     const link_text = e.currentTarget.getAttribute("data-nav-link");
-
+    
     if (link_text === "home") {
       content_section.replaceChildren(DefaultHomePageContent(recipes));
     } else if (link_text === "myCookbook") {
-      //TODO: this is where you should place the my cook book contents
-      content_section.replaceChildren(MyCookBook());
+      const all_recipe = await getAllCustomRecipes()
+
+      content_section.replaceChildren(MyCookBook(all_recipe));
     }
   });
 });
@@ -167,7 +168,12 @@ document.addEventListener("click", (e) => {
 
     const data = getFormData(recipe_form);
 
-    addCustomRecipe(data);
+    const params = {
+      source: "custom",
+      ...data,
+    }
+
+    addCustomRecipe(params);
 
     hideModal("modal__container");
   }

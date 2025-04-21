@@ -15,7 +15,6 @@
   box-shadow: $btn-shadow-one;
 }
 
-
 .btn--secondary {
   background-color: $btn-white-bg;
   box-shadow: $btn-shadow-one;
@@ -66,7 +65,7 @@
 .input, .text__area, .select {
   max-width: inherit;
   height: 36px;
-  background-color: #fdfaf6;
+  background-color: $bg-primary;
   border-radius: 0.25rem;
   padding: 0 0.6rem;
   border: solid 1px #d5d7da;

@@ -1,0 +1,33 @@
+.cook__book--container {
+  display: flex;
+  flex-direction: column;
+  gap: $size-40px;
+  margin-bottom: $size-124px;
+
+  h1 {
+    font-size: $size-32px;
+  }
+
+  .recipe__filter--container {
+    display: flex;
+    gap: $size-32px;
+  }
+
+  .cook__book--contents {
+    display: flex;
+    flex-direction: column;
+    gap: $size-72px;
+
+    #card__main--container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: $size-24px; 
+      row-gap: $size-48px;
+
+      .grouped__buttons--container {
+        display: flex;
+        gap: $size-24px;
+      }
+    }
+  }
+}

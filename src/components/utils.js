@@ -55,3 +55,33 @@ export function generateInput(labelName, inputType, name, options = [], value = 
 
   return inputContainer;
 }
+
+export function formatFirebaseTimestamp(timestamp) {
+  try {
+    let date;
+
+    // Check if the timestamp is a Firestore Timestamp object
+    if (timestamp && typeof timestamp.toDate === "function") {
+      date = timestamp.toDate();
+    } 
+    // Check if the timestamp is a valid JavaScript Date object
+    else if (timestamp instanceof Date) {
+      date = timestamp;
+    } 
+    // Check if the timestamp is a string or number (e.g., UNIX timestamp)
+    else if (typeof timestamp === "string" || typeof timestamp === "number") {
+      date = new Date(timestamp);
+    } 
+    // If none of the above, throw an error
+    else {
+      throw new Error("Invalid timestamp format");
+    }
+
+    // Format the date
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  } catch (error) {
+    console.error("Error formatting timestamp:", error);
+    return "Invalid Date"; // Fallback value
+  }
+}

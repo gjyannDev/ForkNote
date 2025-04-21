@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDoc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC5EtQXxEUYfKKVodUMASZDHObZN9vJ9BY",
@@ -13,5 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-export const colRef = collection(db, "custom_recipes");
+export const col_ref = collection(db, "custom_recipes");
+export const date_created = serverTimestamp();
 export default app;

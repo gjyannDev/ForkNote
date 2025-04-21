@@ -1,5 +1,5 @@
 import { addDoc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
-import { colRef } from "./firebaseClient";
+import { col_ref, date_created } from "./firebaseClient";
 import { handleError } from "./utils";
 
 export async function getSearchedRecipe(query) {
@@ -17,7 +17,10 @@ export async function getSearchedRecipe(query) {
 
 export async function addCustomRecipe(newRecipeData) {
   try {
-    const res = await addDoc(colRef, newRecipeData);
+    const res = await addDoc(col_ref, {
+      dateCreated: date_created,
+      ...newRecipeData,
+    });
 
     return res;
   } catch (error) {
@@ -27,7 +30,7 @@ export async function addCustomRecipe(newRecipeData) {
 
 export async function getAllCustomRecipes() {
   try {
-    const docSnap = await getDocs(colRef);
+    const docSnap = await getDocs(col_ref);
     const allRecipes = docSnap.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -41,17 +44,15 @@ export async function getAllCustomRecipes() {
 
 export async function getRealTimeRecipesData() {
   try {
-    onSnapshot(colRef, (snapShot) => {
+    onSnapshot(col_ref, (snapShot) => {
       snapShot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
-      //*Put the render fucntion in here
+      //*Put the render function in here
     });
   } catch (error) {
     handleError(error, "getRealTimeRecipesData");
   }
 }
-
-
