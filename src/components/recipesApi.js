@@ -23,3 +23,28 @@ export async function addCustomRecipe(newRecipeData) {
     handleError(error, "addCustomRecipe");
   }
 }
+
+export async function getAllCustomRecipes() {
+  try {
+
+    return onSnapshot(colRef, (snapShot) => {
+
+      snapShot.docs.reduce((acc, curr) => {
+        acc.push()
+      }, [])
+    })
+  } catch (error) {
+    handleError(error, "getAllCustomRecipes");
+    handleError(error, "getSearchedRecipe");
+  }
+}
+
+export async function addCustomRecipe(newRecipeData) {
+  try {
+    const res = await addDoc(colRef, newRecipeData)
+
+    return res;
+  } catch (error) {
+    handleError(error, "addCustomRecipe");
+  }
+}
