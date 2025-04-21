@@ -7,7 +7,7 @@ import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
 import Modal from "./components/modal";
 import { hideModal, showModal, getFormData } from "./components/modal";
-import { addCustomRecipe } from "./components/recipesApi";
+import { addCustomRecipe, getAllCustomRecipes } from "./components/recipesApi";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");

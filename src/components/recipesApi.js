@@ -1,5 +1,6 @@
-import { addDoc, onSnapshot } from "firebase/firestore";
+import { addDoc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
 import { colRef } from "./firebaseClient";
+import { handleError } from "./utils";
 
 export async function getSearchedRecipe(query) {
   try {
@@ -7,7 +8,7 @@ export async function getSearchedRecipe(query) {
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
     );
     const data = res.json();
-    
+
     return data;
   } catch (error) {
     handleError(error, "getSearchedRecipe");
@@ -16,7 +17,7 @@ export async function getSearchedRecipe(query) {
 
 export async function addCustomRecipe(newRecipeData) {
   try {
-    const res = await addDoc(colRef, newRecipeData)
+    const res = await addDoc(colRef, newRecipeData);
 
     return res;
   } catch (error) {
@@ -26,15 +27,22 @@ export async function addCustomRecipe(newRecipeData) {
 
 export async function getAllCustomRecipes() {
   try {
+    const docSnap = await getDocs(colRef);
+    const allRecipes = docSnap.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-    return onSnapshot(colRef, (snapShot) => {
-
-      snapShot.docs.reduce((acc, curr) => {
-        acc.push()
-      }, [])
-    })
+    return allRecipes;
   } catch (error) {
     handleError(error, "getAllCustomRecipes");
-    handleError(error, "getSearchedRecipe");
   }
 }
+
+// export async function getRealTimeRecipesData() {
+//   try {
+
+//   } catch (error) {
+//     handleError(error, "getRealTimeRecipesData");
+//   }
+// }
