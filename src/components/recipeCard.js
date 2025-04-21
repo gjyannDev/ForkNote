@@ -1,6 +1,5 @@
 import timeImg from "/src/assets/icons/bx-time.svg";
 import { formatFirebaseTimestamp } from "./utils";
-import { Timestamp } from "firebase/firestore";
 
 export function recipeCardOne(sectionName, recipesData) {
   const card_main_container = document.createElement("div");
@@ -28,6 +27,7 @@ export function recipeCardOne(sectionName, recipesData) {
     recipe_category_text.setAttribute("class", "category__text");
     other_details_container.setAttribute("class", "other__details--container");
     save_btn.setAttribute("class", "recipe__save--btn save__btn");
+    save_btn.setAttribute("data-card-btn-action", "save");
     recipe_description.setAttribute("class", "recipe__description");
 
     recipe_img.src = recipe.strMealThumb;
@@ -89,13 +89,18 @@ export function recipeCardTwo(allRecipeData) {
     const delete_btn = document.createElement("btn");
     const remove_btn = document.createElement("btn");
 
-    card_container.setAttribute("id", "recipe__card--one");
+    card_container.setAttribute("id", "recipe__card");
+    card_container.setAttribute("data-recipe-id", recipe.id);
     date_time_container.setAttribute("class", "date__time--container");
     recipe_category_text.setAttribute("class", "category__text");
     other_details_container.setAttribute("class", "other__details--container");
     edit_btn.setAttribute("class", "recipe__edit--btn save__btn");
+    edit_btn.setAttribute("data-card-btn-action", "edit");
     delete_btn.setAttribute("class", "recipe__delete--btn save__btn");
+    delete_btn.setAttribute("data-card-btn-action", "delete");
     remove_btn.setAttribute("class", "recipe__remove--btn save__btn");
+    remove_btn.setAttribute("data-card-btn-action", "remove");
+    
     grouped_buttons_container.setAttribute(
       "class",
       "grouped__buttons--container"
