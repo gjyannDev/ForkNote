@@ -1,47 +1,4 @@
-function inputWithLabel(labelName, inputType, name, options = [], value = "") {
-  const inputContainer = document.createElement("div");
-  const inputLabel = document.createElement("p");
-  const input = document.createElement("input");
-  const textarea = document.createElement("textarea");
-  const select = document.createElement("select");
-
-  inputContainer.setAttribute("class", "input__container");
-  input.setAttribute("type", inputType);
-  input.setAttribute("name", name);
-  inputLabel.setAttribute("class", "input__label");
-  input.setAttribute("class", "input");
-  textarea.setAttribute("class", "text__area");
-  textarea.setAttribute("name", name);
-  select.setAttribute("class", "select");
-  select.setAttribute("name", name);
-  input.value = value;
-  textarea.value = value;
-
-  inputLabel.textContent = labelName;
-  
-  if (inputType === "select") {
-    options.forEach((opt) => {
-      const option = document.createElement("option");
-      option.value = opt.value;
-      option.textContent = opt.label;
-      select.appendChild(option);
-    });
-  }
-
-  select.value = value;
-
-  //Appending the content to the DOM
-  inputContainer.appendChild(inputLabel);
-  if (inputType === "textarea") {
-    inputContainer.appendChild(textarea);
-  } else if (inputType === "select") {
-    inputContainer.appendChild(select);
-  } else {
-    inputContainer.appendChild(input);
-  }
-
-  return inputContainer;
-}
+import { generateInput } from "./utils";
 
 export function modalHeader(modalType) {
   const modal_header_container = document.createElement("div");
@@ -105,14 +62,14 @@ export default function Modal(modalType) {
 
   //*Step One Container
   step_one_inputs_container.appendChild(
-    inputWithLabel("Recipe Title", "input", "title")
+    generateInput("Recipe Title", "input", "title")
   );
   step_one_inputs_container.appendChild(
-    inputWithLabel("Image URL", "input", "url")
+    generateInput("Image URL", "input", "url")
   );
   //TODO: Get all of the category and append it on here
   step_one_inputs_container.appendChild(
-    inputWithLabel("Category", "select", "category", [
+    generateInput("Category", "select", "category", [
       { value: "low", label: "Chicken" },
     ])
   );
@@ -124,13 +81,13 @@ export default function Modal(modalType) {
 
   //*Step Two Container
   step_two_inputs_container.appendChild(
-    inputWithLabel("Recipe Ingredients", "textarea", "ingredients")
+    generateInput("Recipe Ingredients", "textarea", "ingredients")
   );
   step_two_inputs_container.appendChild(
-    inputWithLabel("Recipe Instructions", "textarea", "instructions")
+    generateInput("Recipe Instructions", "textarea", "instructions")
   );
   step_two_inputs_container.appendChild(
-    inputWithLabel("Notes", "textarea", "notes")
+    generateInput("Notes", "textarea", "notes")
   );
   step_two_buttons_container.appendChild(back_btn);
   step_two_buttons_container.appendChild(add_recipe_btn);

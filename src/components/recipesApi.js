@@ -39,10 +39,19 @@ export async function getAllCustomRecipes() {
   }
 }
 
-// export async function getRealTimeRecipesData() {
-//   try {
+export async function getRealTimeRecipesData() {
+  try {
+    onSnapshot(colRef, (snapShot) => {
+      snapShot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-//   } catch (error) {
-//     handleError(error, "getRealTimeRecipesData");
-//   }
-// }
+      //*Put the render fucntion in here
+    });
+  } catch (error) {
+    handleError(error, "getRealTimeRecipesData");
+  }
+}
+
+

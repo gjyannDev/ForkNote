@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import Modal from "./components/modal";
 import { hideModal, showModal, getFormData } from "./components/modal";
 import { addCustomRecipe, getAllCustomRecipes } from "./components/recipesApi";
+import MyCookBook from "./components/myCookBook";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -83,6 +84,7 @@ header__container.appendChild(HeaderComponent());
 //Search Bar
 search_bar_section.appendChild(searchBar());
 
+//This line of code is responsible for default homepage and searched homepage
 document.addEventListener("DOMContentLoaded", () => {
   content_section.replaceChildren(DefaultHomePageContent(recipes));
 
@@ -108,6 +110,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//This is where the page switching of the header nav link
+document.querySelectorAll("[data-nav-link]").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const link_text = e.currentTarget.getAttribute("data-nav-link");
+
+    if (link_text === "home") {
+      content_section.replaceChildren(DefaultHomePageContent(recipes));
+    } else if (link_text === "myCookbook") {
+      //TODO: this is where you should place the my cook book contents
+      content_section.replaceChildren(MyCookBook());
+    }
+  });
+});
+
 //Footer
 footer_container.insertBefore(Footer(), footer_contents);
 
@@ -128,6 +144,7 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
   });
 });
 
+//This is the buttons for the modal
 document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("cancel__btn--modal")) {
     hideModal("modal__container");
