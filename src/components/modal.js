@@ -18,7 +18,7 @@ function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   textarea.value = value;
 
   inputLabel.textContent = labelName;
-
+  
   if (inputType === "select") {
     options.forEach((opt) => {
       const option = document.createElement("option");
@@ -96,7 +96,6 @@ export default function Modal(modalType) {
   add_recipe_btn.setAttribute("type", "submit");
   back_btn.setAttribute("class", "back__btn--modal modal__btn--secondary");
   back_btn.setAttribute("type", "button");
-  
   recipe_details_text.textContent = "Recipe Details";
   recipe_instructions_text.textContent = "Recipe Instruction";
   cancel_btn.textContent = "Cancel";
@@ -154,4 +153,11 @@ export function hideModal(modalContainer) {
 
 export function showModal(modalContainer) {
   document.querySelector(`.${modalContainer}`).classList.remove("hidden");
+}
+
+export function getFormData(formContainer) {
+  const formData = new FormData(formContainer);
+  const data = Object.fromEntries(formData.entries());
+
+  return data;
 }

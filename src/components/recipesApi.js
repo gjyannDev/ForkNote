@@ -1,3 +1,6 @@
+import { addDoc, onSnapshot } from "firebase/firestore";
+import { colRef } from "./firebaseClient";
+
 export async function getSearchedRecipe(query) {
   try {
     const res = await fetch(
@@ -7,6 +10,16 @@ export async function getSearchedRecipe(query) {
     
     return data;
   } catch (error) {
-    console.error(error);
+    handleError(error, "getSearchedRecipe");
+  }
+}
+
+export async function addCustomRecipe(newRecipeData) {
+  try {
+    const res = await addDoc(colRef, newRecipeData)
+
+    return res;
+  } catch (error) {
+    handleError(error, "addCustomRecipe");
   }
 }

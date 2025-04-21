@@ -6,7 +6,8 @@ import { getSearchedRecipe } from "./components/recipesApi";
 import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
 import Modal from "./components/modal";
-import { hideModal, showModal } from "./components/modal";
+import { hideModal, showModal, getFormData } from "./components/modal";
+import { addCustomRecipe } from "./components/recipesApi";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -122,7 +123,7 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
 
       add_modal_container.replaceChildren(Modal("add modal"));
 
-      showModal("modal__container")
+      showModal("modal__container");
     }
   });
 });
@@ -140,5 +141,17 @@ document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("back__btn--modal")) {
     hideModal("step__two--container");
     showModal("step__one--container");
+  }
+
+  if (e.target && e.target.classList.contains("add__btn--modal")) {
+    e.preventDefault();
+
+    let recipe_form = document.querySelector(".recipe__form");
+
+    const data = getFormData(recipe_form);
+
+    addCustomRecipe(data);
+
+    hideModal("modal__container");
   }
 });
