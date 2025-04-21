@@ -1,4 +1,13 @@
-import { addDoc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+  getDoc,
+} from "firebase/firestore";
 import { col_ref, date_created } from "./firebaseClient";
 import { handleError } from "./utils";
 
@@ -50,9 +59,31 @@ export async function getRealTimeRecipesData() {
         ...doc.data(),
       }));
 
-      //*Put the render function in here
+      //TODO: Put the render function in here
     });
   } catch (error) {
     handleError(error, "getRealTimeRecipesData");
+  }
+}
+
+export async function updateCustomRecipe(recipeId, newData) {
+  try {
+    const ref_doc = doc(db, "custom_recipes", recipeId);
+    const res = await updateDoc(ref_doc, newData);
+
+    return res;
+  } catch (error) {
+    handleError(error, "updateCustomRecipe");
+  }
+}
+
+export async function getRecipeById(recipeId) {
+  try {
+    const recipe = doc(col_ref, recipeId);
+    const res = await getDoc(recipe);
+
+    return res.data();
+  } catch (error) {
+    handleError(error, "updateCustomRecipe");
   }
 }
