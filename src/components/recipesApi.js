@@ -7,6 +7,7 @@ import {
   updateDoc,
   where,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { col_ref, date_created, db } from "./firebaseClient";
 import { handleError } from "./utils";
@@ -85,5 +86,15 @@ export async function getRecipeById(recipeId) {
     return res.data();
   } catch (error) {
     handleError(error, "updateCustomRecipe");
+  }
+}
+
+export async function deleteCustomRecipe(recipeId) {
+  try {
+    const res = await deleteDoc(col_ref, recipeId)
+
+    return res;
+  } catch (error) {
+    handleError(error, "deleteCustomRecipe");
   }
 }

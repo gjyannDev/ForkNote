@@ -6,12 +6,18 @@ import { getSearchedRecipe } from "./components/recipesApi";
 import SearchedPageContent from "./components/searchedPageContent";
 import Footer from "./components/footer";
 import Modal from "./components/modal";
-import { hideModal, showModal, getFormData } from "./components/modal";
+import {
+  hideModal,
+  showModal,
+  getFormData,
+  displayRecipeRemoval,
+} from "./components/modal";
 import {
   addCustomRecipe,
   getAllCustomRecipes,
   getRecipeById,
   updateCustomRecipe,
+  deleteCustomRecipe,
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
 
@@ -153,7 +159,9 @@ document.addEventListener("click", async (e) => {
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
     const recipe_card_container = btn.closest("[data-recipe-id]");
-    const edit_modal_container = document.getElementById("edit__modal--container");
+    const edit_modal_container = document.getElementById(
+      "edit__modal--container"
+    );
     recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
@@ -166,6 +174,16 @@ document.addEventListener("click", async (e) => {
     edit_modal_container.replaceChildren(Modal("edit modal", recipe));
 
     showModal("edit__modal");
+  } else if (selected_modal === "delete_recipe" || selected_modal === "remove_recipe") {
+    const del_modal_container = document.getElementById("delete__modal--container");
+    
+    del_modal_container.replaceChildren(
+      displayRecipeRemoval(
+        `${selected_modal === "delete_recipe" ? "delete" : "recipe"}`
+      )
+    );
+
+    showModal("delete__modal");
   }
 });
 
@@ -213,12 +231,14 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
 
     let recipe_form = document.querySelector(".recipe__form--edit");
-    
+
     const data = getFormData(recipe_form);
 
     updateCustomRecipe(recipe_id, data);
-    
+
     hideModal("edit__modal");
+  } else if (selected_btn === "add__confirm--btn") {
+    //TODO: This is where the dele API will be called
   }
 });
 
@@ -274,7 +294,10 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
 
-  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
+  if (
+    recipe_card_container &&
+    recipe_card_container.hasAttribute("data-recipe-id")
+  ) {
     let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);

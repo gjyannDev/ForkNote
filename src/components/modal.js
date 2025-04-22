@@ -1,4 +1,43 @@
 import { generateInput } from "./utils";
+import delImg from "/src/assets/images/delete_modal_img.svg";
+
+export function displayRecipeRemoval(delType) {
+  const del_main_container = document.createElement("div");
+  const grouped_btn_container = document.createElement("div");
+  const del_contents_container = document.createElement("div");
+  const del_img = document.createElement("img");
+  const del_description = document.createElement("p");
+  const cancel_btn = document.createElement("button");
+  const confirm_btn = document.createElement("button");
+
+  del_main_container.setAttribute("class", "del__main--container");
+  grouped_btn_container.setAttribute("class", "del__btn--container");
+  del_contents_container.setAttribute('class', "del__contents--container");
+  cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
+  cancel_btn.setAttribute("type", "button");
+  cancel_btn.setAttribute("data-modal-cancel", "cancel__del--btn");
+  confirm_btn.setAttribute("class", "confirm__btn--modal modal__btn--primary");
+  confirm_btn.setAttribute("type", "submit");
+  confirm_btn.setAttribute("data-modal-add", "add__confirm--btn");
+
+  del_description.textContent = `Are you sure you want to ${
+    delType === "delete" ? "delete" : "remove"
+  } this recipe?`;
+  cancel_btn.textContent = "Cancel";
+  confirm_btn.textContent = "Confirm";
+  del_img.src = delImg;
+  del_img.style.width = "208px";
+  del_img.style.height = "208px";
+
+  grouped_btn_container.appendChild(cancel_btn);
+  grouped_btn_container.appendChild(confirm_btn);
+  del_contents_container.appendChild(del_img);
+  del_contents_container.appendChild(del_description);
+  del_main_container.appendChild(del_contents_container);
+  del_main_container.appendChild(grouped_btn_container);
+
+  return del_main_container;
+}
 
 export function modalHeader(modalType) {
   const modal_header_container = document.createElement("div");
