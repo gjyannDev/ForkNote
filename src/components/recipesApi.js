@@ -91,12 +91,25 @@ export async function getRecipeById(recipeId) {
 
 export async function deleteCustomRecipe(recipeId) {
   try {
-    console.log(recipeId)
+    console.log(recipeId);
     const doc_ref = doc(col_ref, recipeId);
     const res = await deleteDoc(doc_ref);
 
     return res;
   } catch (error) {
     handleError(error, "deleteCustomRecipe");
+  }
+}
+
+export async function getSearchedMealById(recipeMealId) {
+  try {
+    const res = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeMealId}`
+    );
+    const data = res.json();
+
+    return data;
+  } catch (error) {
+    handleError(error, "getSearchedMealById");
   }
 }

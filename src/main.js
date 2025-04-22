@@ -18,6 +18,7 @@ import {
   getRecipeById,
   updateCustomRecipe,
   deleteCustomRecipe,
+  getSearchedMealById,
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
 
@@ -298,10 +299,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
 
-  if (
-    recipe_card_container &&
-    recipe_card_container.hasAttribute("data-recipe-id")
-  ) {
+  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
     let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
@@ -309,3 +307,16 @@ document.addEventListener("click", async (e) => {
     //TODO: Create a page in which the user can see the recipe details etc..
   }
 });
+
+document.addEventListener("click", async (e) => {
+  const recipe_card_container = e.target.closest("#card__main--container > *");
+
+  if (recipe_card_container && recipe_card_container.hasAttribute("data-searched-id")) {
+    let searched_recipe_id = recipe_card_container.getAttribute("data-searched-id");
+
+    const searched_recipe = await getSearchedMealById(searched_recipe_id);
+
+  }
+});
+
+

@@ -22,6 +22,7 @@ export function recipeCardOne(sectionName, recipesData) {
     const save_btn = document.createElement("btn");
 
     card_container.setAttribute("id", "recipe__card--one");
+    card_container.setAttribute("data-searched-id", recipe.idMeal);
     // cooking_time_container.setAttribute("class", "cooking__time--container");
     date_time_container.setAttribute("class", "date__time--container");
     recipe_category_text.setAttribute("class", "category__text");
