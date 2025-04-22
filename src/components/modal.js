@@ -48,18 +48,20 @@ export default function Modal(modalType) {
   cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
   cancel_btn.setAttribute("type", "button");
   modalType === "add modal" &&
-    cancel_btn.setAttribute("data-modal-btn-action", "cancel__add--btn");
+    cancel_btn.setAttribute("data-modal-cancel", "cancel__add--btn");
   modalType === "edit modal" &&
-    cancel_btn.setAttribute("data-modal-btn-action", "cancel__edit--btn");
+    cancel_btn.setAttribute("data-modal-cancel", "cancel__edit--btn");
+  modalType === "delete modal" &&
+    cancel_btn.setAttribute("data-modal-cancel", "cancel__del--btn");
   next_btn.setAttribute("class", "next__btn--modal modal__btn--primary");
   next_btn.setAttribute("type", "button");
   next_btn.setAttribute("data-modal-btn-action", "next__btn");
   add_recipe_btn.setAttribute("class", "add__btn--modal modal__btn--primary");
   add_recipe_btn.setAttribute("type", "submit");
   modalType === "add modal" &&
-    add_recipe_btn.setAttribute("data-modal-btn-action", "add__add--btn");
+    add_recipe_btn.setAttribute("data-modal-add", "add__add--btn");
   modalType === "edit modal" &&
-    add_recipe_btn.setAttribute("data-modal-btn-action", "add__edit--btn");
+    add_recipe_btn.setAttribute("data-modal-add", "add__edit--btn");
   back_btn.setAttribute("class", "back__btn--modal modal__btn--secondary");
   back_btn.setAttribute("type", "button");
   back_btn.setAttribute("data-modal-btn-action", "back__btn");

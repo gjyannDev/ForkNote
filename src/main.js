@@ -142,25 +142,46 @@ document.addEventListener("click", (e) => {
   const selected_modal = btn.getAttribute("data-modal-btn");
 
   if (selected_modal === "add_recipe") {
-    const add_modal_container = document.getElementById("add__modal--container");
+    const add_modal_container = document.getElementById(
+      "add__modal--container"
+    );
     add_modal_container.replaceChildren(Modal("add modal"));
     showModal("add__modal");
-
   } else if (selected_modal === "edit_recipe") {
-    const edit_modal_container = document.getElementById("edit__modal--container");
+    const edit_modal_container = document.getElementById(
+      "edit__modal--container"
+    );
     edit_modal_container.replaceChildren(Modal("edit modal"));
     showModal("edit__modal");
   }
 });
 
-//TODO: Fix the cancel button on the modal because it's also appearing on the edit and also delete modal don't make it sync
-//This is the buttons for the modal
+//This function is responsible for cancel action in the modal
 document.addEventListener("click", (e) => {
-  if (e.target && e.target.classList.contains("cancel__btn--modal")) {
-    hideModal("add__modal--container", "id");
-  }
+  const btn = e.target.closest("[data-modal-cancel]");
 
-  if (e.target && e.target.classList.contains("add__btn--modal")) {
+  if (!btn) return;
+
+  const selected_btn = btn.getAttribute("data-modal-cancel");
+
+  if (selected_btn === "cancel__add--btn") {
+    hideModal("add__modal--container", "id");
+  } else if (selected_btn === "cancel__edit--btn") {
+    hideModal("edit__modal--container", "id");
+  } else if (selected_btn === "cancel__del--btn") {
+    hideModal("delete__modal--container", "id");
+  }
+});
+
+//This function is responsible for add action in the modal
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-modal-add]");
+
+  if (!btn) return;
+
+  const selected_btn = btn.getAttribute("data-modal-add");
+
+  if (selected_btn === "add__add--btn") {
     e.preventDefault();
 
     let recipe_form = document.querySelector(".recipe__form");
@@ -175,9 +196,12 @@ document.addEventListener("click", (e) => {
     addCustomRecipe(params);
 
     hideModal("modal__container");
+  } else if (selected_btn === "add__edit--btn") {
+    
   }
 });
 
+//This function is responsible for the switching of step one and step two of the modal
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-modal-btn-action]");
 
