@@ -134,7 +134,7 @@ document.querySelectorAll("[data-nav-link]").forEach((link) => {
 footer_container.insertBefore(Footer(), footer_contents);
 
 //Open modal for edit, delete, and add recipe
-document.addEventListener("click", (e) => {
+document.addEventListener("click", async (e) => {
   const btn = e.target.closest("[data-modal-btn]");
 
   if (!btn) return;
@@ -142,16 +142,24 @@ document.addEventListener("click", (e) => {
   const selected_modal = btn.getAttribute("data-modal-btn");
 
   if (selected_modal === "add_recipe") {
-    const add_modal_container = document.getElementById(
-      "add__modal--container"
-    );
+    const add_modal_container = document.getElementById("add__modal--container");
     add_modal_container.replaceChildren(Modal("add modal"));
+
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
-    const edit_modal_container = document.getElementById(
-      "edit__modal--container"
-    );
-    edit_modal_container.replaceChildren(Modal("edit modal"));
+    const recipe_card_container = btn.closest("[data-recipe-id]");
+    const edit_modal_container = document.getElementById("edit__modal--container");
+    const recipe_id = recipe_card_container.getAttribute("data-recipe-id");
+    
+    const recipe = await getRecipeById(recipe_id)
+
+    if (!recipe_card_container) {
+      console.error("No recipe card found for editing.");
+      return;
+    }
+    
+    edit_modal_container.replaceChildren(Modal("edit modal", recipe));
+
     showModal("edit__modal");
   }
 });
@@ -226,10 +234,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
 
-  if (
-    recipe_card_container &&
-    recipe_card_container.hasAttribute("data-recipe-id")
-  ) {
+  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
     let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);

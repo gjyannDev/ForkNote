@@ -21,7 +21,7 @@ export function modalHeader(modalType) {
   return modal_header_container;
 }
 
-export default function Modal(modalType) {
+export default function Modal(modalType, recipe = []) {
   const recipe_form_container = document.createElement("div");
   const recipe_form = document.createElement("form");
   const step_one_container = document.createElement("div");
@@ -73,18 +73,37 @@ export default function Modal(modalType) {
   back_btn.textContent = "Back";
 
   //*Step One Container
-  step_one_inputs_container.appendChild(
-    generateInput("Recipe Title", "input", "title")
-  );
-  step_one_inputs_container.appendChild(
-    generateInput("Image URL", "input", "url")
-  );
-  //TODO: Get all of the category and append it on here
-  step_one_inputs_container.appendChild(
-    generateInput("Category", "select", "category", [
-      { value: "low", label: "Chicken" },
-    ])
-  );
+  if (modalType === "add modal") {
+    step_one_inputs_container.appendChild(
+      generateInput("Recipe Title", "input", "title")
+    );
+    step_one_inputs_container.appendChild(
+      generateInput("Image URL", "input", "url")
+    );
+    //TODO: Get all of the category and append it on here
+    step_one_inputs_container.appendChild(
+      generateInput("Category", "select", "category", [
+        { value: "low", label: "Chicken" },
+      ])
+    );
+  } else if (modalType === "edit modal") {
+    step_one_inputs_container.appendChild(
+      generateInput("Recipe Title", "input", "title", [], recipe.title)
+    );
+    step_one_inputs_container.appendChild(
+      generateInput("Image URL", "input", "url", [], recipe.url)
+    );
+    //TODO: Get all of the category and append it on here
+    step_one_inputs_container.appendChild(
+      generateInput(
+        "Category",
+        "select",
+        "category",
+        [{ value: "low", label: "Chicken" }],
+        recipe.category
+      )
+    );
+  }
   step_one_buttons_container.appendChild(cancel_btn);
   step_one_buttons_container.appendChild(next_btn);
   step_one_container.appendChild(recipe_details_text);
@@ -92,15 +111,27 @@ export default function Modal(modalType) {
   step_one_container.appendChild(step_one_buttons_container);
 
   //*Step Two Container
-  step_two_inputs_container.appendChild(
-    generateInput("Recipe Ingredients", "textarea", "ingredients")
-  );
-  step_two_inputs_container.appendChild(
-    generateInput("Recipe Instructions", "textarea", "instructions")
-  );
-  step_two_inputs_container.appendChild(
-    generateInput("Notes", "textarea", "notes")
-  );
+  if (modalType === "add modal") {
+    step_two_inputs_container.appendChild(
+      generateInput("Recipe Ingredients", "textarea", "ingredients")
+    );
+    step_two_inputs_container.appendChild(
+      generateInput("Recipe Instructions", "textarea", "instructions")
+    );
+    step_two_inputs_container.appendChild(
+      generateInput("Notes", "textarea", "notes")
+    );
+  } else if (modalType === "edit modal") {
+    step_two_inputs_container.appendChild(
+      generateInput("Recipe Ingredients", "textarea", "ingredients", [], recipe.ingredients)
+    );
+    step_two_inputs_container.appendChild(
+      generateInput("Recipe Instructions", "textarea", "instructions", [], recipe.instructions)
+    );
+    step_two_inputs_container.appendChild(
+      generateInput("Notes", "textarea", "notes", [], recipe.notes)
+    );
+  }
   step_two_buttons_container.appendChild(back_btn);
   step_two_buttons_container.appendChild(add_recipe_btn);
   step_two_container.appendChild(recipe_instructions_text);
