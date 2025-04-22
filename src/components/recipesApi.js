@@ -52,15 +52,16 @@ export async function getAllCustomRecipes() {
   }
 }
 
-export async function getRealTimeRecipesData() {
+export async function getRealTimeRecipesData(renderFn) {
   try {
     onSnapshot(col_ref, (snapShot) => {
-      snapShot.docs.map((doc) => ({
+      const real_time_recipes = snapShot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
-      //TODO: Put the render function in here
+      renderFn(real_time_recipes)
+
     });
   } catch (error) {
     handleError(error, "getRealTimeRecipesData");

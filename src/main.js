@@ -19,9 +19,10 @@ import {
   updateCustomRecipe,
   deleteCustomRecipe,
   getSearchedMealById,
+  getRealTimeRecipesData
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
-import { extractIngredients } from "./components/utils";
+import { extractIngredients, renderRecipeCards} from "./components/utils";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -235,6 +236,8 @@ document.addEventListener("click", (e) => {
 
     addCustomRecipe(params);
 
+    getRealTimeRecipesData(renderRecipeCards);
+
     hideModal("add__modal");
   } else if (selected_btn === "add__edit--btn") {
     e.preventDefault();
@@ -245,11 +248,15 @@ document.addEventListener("click", (e) => {
 
     updateCustomRecipe(recipe_id, data);
 
+    getRealTimeRecipesData(renderRecipeCards);
+
     hideModal("edit__modal");
   } else if (selected_btn === "add__confirm--btn") {
     e.preventDefault();
 
     deleteCustomRecipe(recipe_id);
+
+    getRealTimeRecipesData(renderRecipeCards);
 
     hideModal("delete__modal");
   }
@@ -335,8 +342,6 @@ document.addEventListener("click", async (e) => {
 
     searched_recipe = await getSearchedMealById(searched_recipe_id);
 
-    console.log(searched_recipe);
-
     //TODO: Create a page in which the user can see the recipe details etc..
   }
 
@@ -355,7 +360,7 @@ document.addEventListener("click", async (e) => {
 
       return acc;
     }, {});
-    
+
     addCustomRecipe(params);
   }
 });

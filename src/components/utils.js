@@ -1,10 +1,19 @@
 import emptyImg from "/src/assets/images/empty_searched.svg";
+import MyCookBook from "./myCookBook";
+import { recipeCardTwo } from "./recipeCard";
 
 export function handleError(error, functionName) {
   console.error(`Error in ${functionName}:`, error.message || error);
 }
 
-export function generateInput(labelName, inputType, name, options = [], value = "", withLabel = true) {
+export function generateInput(
+  labelName,
+  inputType,
+  name,
+  options = [],
+  value = "",
+  withLabel = true
+) {
   const inputContainer = document.createElement("div");
   const inputLabel = document.createElement("p");
   const input = document.createElement("input");
@@ -22,9 +31,9 @@ export function generateInput(labelName, inputType, name, options = [], value = 
   select.setAttribute("name", name);
   input.value = value;
   textarea.value = value;
-  
+
   inputLabel.textContent = labelName;
-  
+
   if (inputType === "select") {
     options.forEach((opt) => {
       const option = document.createElement("option");
@@ -34,13 +43,13 @@ export function generateInput(labelName, inputType, name, options = [], value = 
     });
 
     if (options.some((opt) => opt.value === value)) {
-      select.value = value; 
+      select.value = value;
     } else {
       const fallbackOption = document.createElement("option");
       fallbackOption.value = labelName;
       fallbackOption.textContent = labelName;
-      select.appendChild(fallbackOption); 
-      select.value = labelName; 
+      select.appendChild(fallbackOption);
+      select.value = labelName;
     }
   }
 
@@ -64,14 +73,11 @@ export function formatFirebaseTimestamp(timestamp) {
 
     if (timestamp && typeof timestamp.toDate === "function") {
       date = timestamp.toDate();
-    } 
-    else if (timestamp instanceof Date) {
+    } else if (timestamp instanceof Date) {
       date = timestamp;
-    } 
-    else if (typeof timestamp === "string" || typeof timestamp === "number") {
+    } else if (typeof timestamp === "string" || typeof timestamp === "number") {
       date = new Date(timestamp);
-    } 
-    else {
+    } else {
       throw new Error("Invalid timestamp format");
     }
 
@@ -93,11 +99,11 @@ export function resultEmpty(page) {
   empty_img.src = emptyImg;
   empty_img.style.width = "256px";
   empty_img.style.height = "256px";
-  (page === "my_cookbook")
-   ? empty_text.textContent =
-      "Your cookbook is empty. Add a recipe to begin your culinary journey!"
-   : empty_text.textContent =
-      "No recipes found. Try checking your spelling or using different keywords."
+  page === "my_cookbook"
+    ? (empty_text.textContent =
+        "Your cookbook is empty. Add a recipe to begin your culinary journey!")
+    : (empty_text.textContent =
+        "No recipes found. Try checking your spelling or using different keywords.");
 
   empty_searched_container.appendChild(empty_img);
   empty_searched_container.appendChild(empty_text);
@@ -107,17 +113,39 @@ export function resultEmpty(page) {
 
 export function extractIngredients(meals) {
   const ingredients = [];
-  
+
   meals.forEach((meal) => {
     for (let i = 1; i <= 20; i++) {
       const ingredient = meal[`strIngredient${i}`]?.trim();
       const measure = meal[`strMeasure${i}`]?.trim();
-  
+
       if (ingredient && ingredient !== "") {
         ingredients.push(`${measure} ${ingredient}`.trim());
       }
     }
-  })
+  });
 
   return ingredients;
 }
+
+export function renderRecipeCards(recipeData) {
+  setTimeout(() => {
+    const cardContainer = document.querySelector(".cook__book--contents");
+    const oldCards = cardContainer.querySelectorAll("#recipe__card");
+    const card = cardContainer.querySelector("#card__main--container");
+    const empty_card = cardContainer.querySelector(".empty__searched--container");
+    
+    if (card) card.remove()
+    if (empty_card) empty_card.remove()
+    if (oldCards.length) {
+      oldCards.forEach(card => card.remove());
+    }
+
+    const result = (recipeData.length !== 0)
+    ? recipeCardTwo(recipeData)
+    : resultEmpty("my_cookbook");
+
+    cardContainer.appendChild(result);
+  }, 1000);
+}
+
