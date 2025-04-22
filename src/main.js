@@ -159,9 +159,7 @@ document.addEventListener("click", async (e) => {
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
     const recipe_card_container = btn.closest("[data-recipe-id]");
-    const edit_modal_container = document.getElementById(
-      "edit__modal--container"
-    );
+    const edit_modal_container = document.getElementById("edit__modal--container");
     recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
@@ -176,7 +174,9 @@ document.addEventListener("click", async (e) => {
     showModal("edit__modal");
   } else if (selected_modal === "delete_recipe" || selected_modal === "remove_recipe") {
     const del_modal_container = document.getElementById("delete__modal--container");
-    
+    const recipe_card_container = btn.closest("[data-recipe-id]");
+    recipe_id = recipe_card_container.getAttribute("data-recipe-id");
+
     del_modal_container.replaceChildren(
       displayRecipeRemoval(
         `${selected_modal === "delete_recipe" ? "delete" : "recipe"}`
@@ -238,7 +238,11 @@ document.addEventListener("click", (e) => {
 
     hideModal("edit__modal");
   } else if (selected_btn === "add__confirm--btn") {
-    //TODO: This is where the dele API will be called
+    e.preventDefault();
+
+    deleteCustomRecipe(recipe_id)
+
+    hideModal("delete__modal");
   }
 });
 

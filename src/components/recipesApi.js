@@ -91,7 +91,9 @@ export async function getRecipeById(recipeId) {
 
 export async function deleteCustomRecipe(recipeId) {
   try {
-    const res = await deleteDoc(col_ref, recipeId)
+    console.log(recipeId)
+    const doc_ref = doc(col_ref, recipeId);
+    const res = await deleteDoc(doc_ref);
 
     return res;
   } catch (error) {
