@@ -21,6 +21,7 @@ import {
   getSearchedMealById,
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
+import { extractIngredients } from "./components/utils";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -160,7 +161,9 @@ document.addEventListener("click", async (e) => {
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
     const recipe_card_container = btn.closest("[data-recipe-id]");
-    const edit_modal_container = document.getElementById("edit__modal--container");
+    const edit_modal_container = document.getElementById(
+      "edit__modal--container"
+    );
     recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
@@ -173,8 +176,13 @@ document.addEventListener("click", async (e) => {
     edit_modal_container.replaceChildren(Modal("edit modal", recipe));
 
     showModal("edit__modal");
-  } else if (selected_modal === "delete_recipe" || selected_modal === "remove_recipe") {
-    const del_modal_container = document.getElementById("delete__modal--container");
+  } else if (
+    selected_modal === "delete_recipe" ||
+    selected_modal === "remove_recipe"
+  ) {
+    const del_modal_container = document.getElementById(
+      "delete__modal--container"
+    );
     const recipe_card_container = btn.closest("[data-recipe-id]");
     recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
@@ -241,7 +249,7 @@ document.addEventListener("click", (e) => {
   } else if (selected_btn === "add__confirm--btn") {
     e.preventDefault();
 
-    deleteCustomRecipe(recipe_id)
+    deleteCustomRecipe(recipe_id);
 
     hideModal("delete__modal");
   }
@@ -299,7 +307,10 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
 
-  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
+  if (
+    recipe_card_container &&
+    recipe_card_container.hasAttribute("data-recipe-id")
+  ) {
     let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
@@ -308,15 +319,43 @@ document.addEventListener("click", async (e) => {
   }
 });
 
+//This function allow to click specific card on the searched recipe
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
+  const save_btn = e.target.closest(".recipe__save--btn");
+  let searched_recipe = null;
 
-  if (recipe_card_container && recipe_card_container.hasAttribute("data-searched-id")) {
-    let searched_recipe_id = recipe_card_container.getAttribute("data-searched-id");
+  //Handle the click of the specific recipe card
+  if (
+    recipe_card_container &&
+    recipe_card_container.hasAttribute("data-searched-id")
+  ) {
+    let searched_recipe_id =
+      recipe_card_container.getAttribute("data-searched-id");
 
-    const searched_recipe = await getSearchedMealById(searched_recipe_id);
+    searched_recipe = await getSearchedMealById(searched_recipe_id);
 
+    console.log(searched_recipe);
+
+    //TODO: Create a page in which the user can see the recipe details etc..
+  }
+
+  //Handle the save of the searched recipe
+  if (save_btn) {
+    const ingredients = extractIngredients(searched_recipe.meals);
+
+    const params = searched_recipe.meals.reduce((acc, curr) => {
+      acc["category"] = curr.strCategory;
+      acc["title"] = curr.strMeal;
+      acc["url"] = curr.strMealThumb;
+      acc["instructions"] = curr.strInstructions;
+      acc["ingredients"] = ingredients.toString();
+      acc["source"] = "searched";
+      acc["notes"] = "";
+
+      return acc;
+    }, {});
+    
+    addCustomRecipe(params);
   }
 });
-
-

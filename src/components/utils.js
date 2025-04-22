@@ -104,3 +104,20 @@ export function resultEmpty(page) {
 
   return empty_searched_container;
 }
+
+export function extractIngredients(meals) {
+  const ingredients = [];
+  
+  meals.forEach((meal) => {
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal[`strIngredient${i}`]?.trim();
+      const measure = meal[`strMeasure${i}`]?.trim();
+  
+      if (ingredient && ingredient !== "") {
+        ingredients.push(`${measure} ${ingredient}`.trim());
+      }
+    }
+  })
+
+  return ingredients;
+}
