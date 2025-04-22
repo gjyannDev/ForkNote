@@ -38,16 +38,25 @@ export default function Modal(modalType, recipe = []) {
   const back_btn = document.createElement("button");
 
   recipe_form_container.setAttribute("class", "recipe__form--container");
-  recipe_form.setAttribute("class", "recipe__form");
+  recipe_form.setAttribute(
+    "class",
+    modalType === "add modal"
+      ? "recipe__form recipe__form--add"
+      : "recipe__form recipe__form--edit"
+  );
   step_one_container.setAttribute(
     "class",
-    modalType === "add modal" ? "step__one--container add" : "step__one--container edit"
+    modalType === "add modal"
+      ? "step__one--container add"
+      : "step__one--container edit"
   );
   step_one_inputs_container.setAttribute("class", "step__one--inputs");
   step_one_buttons_container.setAttribute("class", "step__one--buttons");
   step_two_container.setAttribute(
     "class",
-    modalType === "add modal" ? "step__two--container add hidden" : "step__two--container edit hidden"
+    modalType === "add modal"
+      ? "step__two--container add hidden"
+      : "step__two--container edit hidden"
   );
   step_two_inputs_container.setAttribute("class", "step__two--inputs");
   step_two_buttons_container.setAttribute("class", "step__two--buttons");
@@ -129,10 +138,22 @@ export default function Modal(modalType, recipe = []) {
     );
   } else if (modalType === "edit modal") {
     step_two_inputs_container.appendChild(
-      generateInput("Recipe Ingredients", "textarea", "ingredients", [], recipe.ingredients)
+      generateInput(
+        "Recipe Ingredients",
+        "textarea",
+        "ingredients",
+        [],
+        recipe.ingredients
+      )
     );
     step_two_inputs_container.appendChild(
-      generateInput("Recipe Instructions", "textarea", "instructions", [], recipe.instructions)
+      generateInput(
+        "Recipe Instructions",
+        "textarea",
+        "instructions",
+        [],
+        recipe.instructions
+      )
     );
     step_two_inputs_container.appendChild(
       generateInput("Notes", "textarea", "notes", [], recipe.notes)

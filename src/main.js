@@ -11,6 +11,7 @@ import {
   addCustomRecipe,
   getAllCustomRecipes,
   getRecipeById,
+  updateCustomRecipe,
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
 
@@ -83,6 +84,8 @@ const recipes = [
   ],
 ];
 
+let recipe_id = null;
+
 //Header
 header__container.appendChild(HeaderComponent());
 
@@ -142,22 +145,24 @@ document.addEventListener("click", async (e) => {
   const selected_modal = btn.getAttribute("data-modal-btn");
 
   if (selected_modal === "add_recipe") {
-    const add_modal_container = document.getElementById("add__modal--container");
+    const add_modal_container = document.getElementById(
+      "add__modal--container"
+    );
     add_modal_container.replaceChildren(Modal("add modal"));
 
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
     const recipe_card_container = btn.closest("[data-recipe-id]");
     const edit_modal_container = document.getElementById("edit__modal--container");
-    const recipe_id = recipe_card_container.getAttribute("data-recipe-id");
-    
-    const recipe = await getRecipeById(recipe_id)
+    recipe_id = recipe_card_container.getAttribute("data-recipe-id");
+
+    const recipe = await getRecipeById(recipe_id);
 
     if (!recipe_card_container) {
       console.error("No recipe card found for editing.");
       return;
     }
-    
+
     edit_modal_container.replaceChildren(Modal("edit modal", recipe));
 
     showModal("edit__modal");
@@ -192,7 +197,7 @@ document.addEventListener("click", (e) => {
   if (selected_btn === "add__add--btn") {
     e.preventDefault();
 
-    let recipe_form = document.querySelector(".recipe__form");
+    let recipe_form = document.querySelector(".recipe__form--add");
 
     const data = getFormData(recipe_form);
 
@@ -203,9 +208,17 @@ document.addEventListener("click", (e) => {
 
     addCustomRecipe(params);
 
-    hideModal("modal__container");
+    hideModal("add__modal");
   } else if (selected_btn === "add__edit--btn") {
+    e.preventDefault();
+
+    let recipe_form = document.querySelector(".recipe__form--edit");
     
+    const data = getFormData(recipe_form);
+
+    updateCustomRecipe(recipe_id, data);
+    
+    hideModal("edit__modal");
   }
 });
 
@@ -222,7 +235,9 @@ document.addEventListener("click", (e) => {
     return;
   }
 
-  const modalType = modalContainer.classList.contains("edit__modal") ? "edit" : "add";
+  const modalType = modalContainer.classList.contains("edit__modal")
+    ? "edit"
+    : "add";
 
   if (selected_btn === "next__btn") {
     const stepOneSelector = `step__one--container.${modalType}`;

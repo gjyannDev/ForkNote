@@ -8,7 +8,7 @@ import {
   where,
   getDoc,
 } from "firebase/firestore";
-import { col_ref, date_created } from "./firebaseClient";
+import { col_ref, date_created, db } from "./firebaseClient";
 import { handleError } from "./utils";
 
 export async function getSearchedRecipe(query) {
