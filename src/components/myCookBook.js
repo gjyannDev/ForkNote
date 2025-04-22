@@ -53,10 +53,9 @@ export default function MyCookBook(recipeData) {
 
   cook_book_container.setAttribute("class", "cook__book--container container");
   cook_book_contents.setAttribute("class", "cook__book--contents");
-
+  
   cook_book_text.textContent = "My Cookbook";
 
-  //TODO: Add recipe card in here
   cook_book_contents.appendChild(myCookBookFilter())
   cook_book_contents.appendChild(recipeCardTwo(recipeData));
   cook_book_container.appendChild(cook_book_text);

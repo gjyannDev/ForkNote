@@ -134,20 +134,23 @@ document.querySelectorAll("[data-nav-link]").forEach((link) => {
 footer_container.insertBefore(Footer(), footer_contents);
 
 //Open modal for edit, delete, and add recipe
-document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const selected_modal = e.currentTarget.getAttribute("data-modal-btn");
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-modal-btn]");
 
-    if (selected_modal === "add_recipe") {
-      const add_modal_container = document.getElementById(
-        "add__modal--container"
-      );
+  if (!btn) return;
 
-      add_modal_container.replaceChildren(Modal("add modal"));
+  const selected_modal = btn.getAttribute("data-modal-btn");
 
-      showModal("modal__container");
-    }
-  });
+  if (selected_modal === "add_recipe") {
+    const add_modal_container = document.getElementById("add__modal--container");
+    add_modal_container.replaceChildren(Modal("add modal"));
+    showModal("add__modal");
+
+  } else if (selected_modal === "edit_recipe") {
+    const edit_modal_container = document.getElementById("edit__modal--container");
+    edit_modal_container.replaceChildren(Modal("edit modal"));
+    showModal("edit__modal");
+  }
 });
 
 //TODO: Fix the cancel button on the modal because it's also appearing on the edit and also delete modal don't make it sync
@@ -155,16 +158,6 @@ document.querySelectorAll("[data-modal-btn]").forEach((btn) => {
 document.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("cancel__btn--modal")) {
     hideModal("add__modal--container", "id");
-  }
-
-  if (e.target && e.target.classList.contains("next__btn--modal")) {
-    hideModal("step__one--container");
-    showModal("step__two--container");
-  }
-
-  if (e.target && e.target.classList.contains("back__btn--modal")) {
-    hideModal("step__two--container");
-    showModal("step__one--container");
   }
 
   if (e.target && e.target.classList.contains("add__btn--modal")) {
@@ -185,31 +178,38 @@ document.addEventListener("click", (e) => {
   }
 });
 
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-modal-btn-action]");
+
+  if (!btn) return;
+
+  const selected_btn = btn.getAttribute("data-modal-btn-action");
+
+  if (selected_btn === "next__btn") {
+    hideModal("step__one--container");
+    showModal("step__two--container");
+  } else if (selected_btn === "back__btn") {
+    hideModal("step__two--container");
+    showModal("step__one--container");
+  } else if (selected_btn === "cancel__add--btn") {
+    hideModal("add__modal--container", "id");
+  } else if (selected_btn === "cancel__edit--btn") {
+    hideModal("edit__modal--container", "id");
+  }
+});
+
 //This allow you to click specific recipe card and get it's recipe id
 document.addEventListener("click", async (e) => {
   const recipe_card_container = e.target.closest("#card__main--container > *");
 
-  if (recipe_card_container && recipe_card_container.hasAttribute("data-recipe-id")) {
+  if (
+    recipe_card_container &&
+    recipe_card_container.hasAttribute("data-recipe-id")
+  ) {
     let recipe_id = recipe_card_container.getAttribute("data-recipe-id");
 
     const recipe = await getRecipeById(recipe_id);
 
     //TODO: Create a page in which the user can see the recipe details etc..
-  }
-});
-
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-card-btn-action]");
-  const edit_modal_container = document.getElementById( "edit__modal--container");
-  if (btn) {
-    const selected_btn = btn.getAttribute("data-card-btn-action");
-
-    if (selected_btn === "edit") {
-      edit_modal_container.replaceChildren(Modal("edit modal"));
-    } else if (selected_btn === "delete") {
-      //TODO: This is for the delete action
-    } else if (selected_btn === "save") {
-      //TODO: This is for the save action
-    }
   }
 });

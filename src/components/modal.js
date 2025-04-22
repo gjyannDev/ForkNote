@@ -47,12 +47,22 @@ export default function Modal(modalType) {
   step_two_buttons_container.setAttribute("class", "step__two--buttons");
   cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
   cancel_btn.setAttribute("type", "button");
+  modalType === "add modal" &&
+    cancel_btn.setAttribute("data-modal-btn-action", "cancel__add--btn");
+  modalType === "edit modal" &&
+    cancel_btn.setAttribute("data-modal-btn-action", "cancel__edit--btn");
   next_btn.setAttribute("class", "next__btn--modal modal__btn--primary");
   next_btn.setAttribute("type", "button");
+  next_btn.setAttribute("data-modal-btn-action", "next__btn");
   add_recipe_btn.setAttribute("class", "add__btn--modal modal__btn--primary");
   add_recipe_btn.setAttribute("type", "submit");
+  modalType === "add modal" &&
+    add_recipe_btn.setAttribute("data-modal-btn-action", "add__add--btn");
+  modalType === "edit modal" &&
+    add_recipe_btn.setAttribute("data-modal-btn-action", "add__edit--btn");
   back_btn.setAttribute("class", "back__btn--modal modal__btn--secondary");
   back_btn.setAttribute("type", "button");
+  back_btn.setAttribute("data-modal-btn-action", "back__btn");
   recipe_details_text.textContent = "Recipe Details";
   recipe_instructions_text.textContent = "Recipe Instruction";
   cancel_btn.textContent = "Cancel";
@@ -104,12 +114,20 @@ export default function Modal(modalType) {
   return recipe_form;
 }
 
-export function hideModal(modalContainer) {
-  document.querySelector(`.${modalContainer}`).classList.add("hidden");
+export function hideModal(modalContainer, type = "class") {
+  if (type === "class") {
+    document.querySelector(`.${modalContainer}`).classList.add("hidden");
+  } else if (type == "id") {
+    document.querySelector(`#${modalContainer}`).classList.add("hidden");
+  }
 }
 
-export function showModal(modalContainer) {
-  document.querySelector(`.${modalContainer}`).classList.remove("hidden");
+export function showModal(modalContainer, type = "class") {
+  if (type === "class") {
+    document.querySelector(`.${modalContainer}`).classList.remove("hidden");
+  } else if (type == "id") {
+    document.querySelector(`#${modalContainer}`).classList.remove("hidden");
+  }
 }
 
 export function getFormData(formContainer) {
