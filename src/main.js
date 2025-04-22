@@ -212,21 +212,46 @@ document.addEventListener("click", (e) => {
 //This function is responsible for the switching of step one and step two of the modal
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-modal-btn-action]");
-
   if (!btn) return;
 
   const selected_btn = btn.getAttribute("data-modal-btn-action");
 
+  const modalContainer = btn.closest(".modal__container");
+  if (!modalContainer) {
+    console.error("Modal container not found.");
+    return;
+  }
+
+  const modalType = modalContainer.classList.contains("edit__modal") ? "edit" : "add";
+
   if (selected_btn === "next__btn") {
-    hideModal("step__one--container");
-    showModal("step__two--container");
+    const stepOneSelector = `step__one--container.${modalType}`;
+    const stepTwoSelector = `step__two--container.${modalType}`;
+
+    const stepOneElement = document.querySelector(`.${stepOneSelector}`);
+    const stepTwoElement = document.querySelector(`.${stepTwoSelector}`);
+
+    if (!stepOneElement) {
+      console.error(`Element with class '${stepOneSelector}' not found.`);
+      return;
+    }
+
+    hideModal(stepOneSelector, "class");
+    showModal(stepTwoSelector, "class");
   } else if (selected_btn === "back__btn") {
-    hideModal("step__two--container");
-    showModal("step__one--container");
-  } else if (selected_btn === "cancel__add--btn") {
-    hideModal("add__modal--container", "id");
-  } else if (selected_btn === "cancel__edit--btn") {
-    hideModal("edit__modal--container", "id");
+    const stepOneSelector = `step__one--container.${modalType}`;
+    const stepTwoSelector = `step__two--container.${modalType}`;
+
+    const stepOneElement = document.querySelector(`.${stepOneSelector}`);
+    const stepTwoElement = document.querySelector(`.${stepTwoSelector}`);
+
+    if (!stepTwoElement) {
+      console.error(`Element with class '${stepTwoSelector}' not found.`);
+      return;
+    }
+
+    hideModal(stepTwoSelector, "class");
+    showModal(stepOneSelector, "class");
   }
 });
 

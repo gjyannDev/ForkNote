@@ -39,10 +39,16 @@ export default function Modal(modalType, recipe = []) {
 
   recipe_form_container.setAttribute("class", "recipe__form--container");
   recipe_form.setAttribute("class", "recipe__form");
-  step_one_container.setAttribute("class", "step__one--container");
+  step_one_container.setAttribute(
+    "class",
+    modalType === "add modal" ? "step__one--container add" : "step__one--container edit"
+  );
   step_one_inputs_container.setAttribute("class", "step__one--inputs");
   step_one_buttons_container.setAttribute("class", "step__one--buttons");
-  step_two_container.setAttribute("class", "step__two--container hidden");
+  step_two_container.setAttribute(
+    "class",
+    modalType === "add modal" ? "step__two--container add hidden" : "step__two--container edit hidden"
+  );
   step_two_inputs_container.setAttribute("class", "step__two--inputs");
   step_two_buttons_container.setAttribute("class", "step__two--buttons");
   cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
@@ -148,19 +154,31 @@ export default function Modal(modalType, recipe = []) {
 }
 
 export function hideModal(modalContainer, type = "class") {
-  if (type === "class") {
-    document.querySelector(`.${modalContainer}`).classList.add("hidden");
-  } else if (type == "id") {
-    document.querySelector(`#${modalContainer}`).classList.add("hidden");
+  const element =
+    type === "class"
+      ? document.querySelector(`.${modalContainer}`)
+      : document.querySelector(`#${modalContainer}`);
+
+  if (!element) {
+    console.error(`Element with ${type} '${modalContainer}' not found.`);
+    return;
   }
+
+  element.classList.add("hidden");
 }
 
 export function showModal(modalContainer, type = "class") {
-  if (type === "class") {
-    document.querySelector(`.${modalContainer}`).classList.remove("hidden");
-  } else if (type == "id") {
-    document.querySelector(`#${modalContainer}`).classList.remove("hidden");
+  const element =
+    type === "class"
+      ? document.querySelector(`.${modalContainer}`)
+      : document.querySelector(`#${modalContainer}`);
+
+  if (!element) {
+    console.error(`Element with ${type} '${modalContainer}' not found.`);
+    return;
   }
+
+  element.classList.remove("hidden");
 }
 
 export function getFormData(formContainer) {
