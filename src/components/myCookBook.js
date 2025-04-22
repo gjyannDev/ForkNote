@@ -1,4 +1,4 @@
-import { generateInput } from "./utils";
+import { generateInput, resultEmpty } from "./utils";
 import { recipeCardTwo } from "./recipeCard";
 
 function myCookBookFilter() {
@@ -53,11 +53,13 @@ export default function MyCookBook(recipeData) {
 
   cook_book_container.setAttribute("class", "cook__book--container container");
   cook_book_contents.setAttribute("class", "cook__book--contents");
-  
+
   cook_book_text.textContent = "My Cookbook";
 
-  cook_book_contents.appendChild(myCookBookFilter())
-  cook_book_contents.appendChild(recipeCardTwo(recipeData));
+  cook_book_contents.appendChild(myCookBookFilter());
+  (recipeData.length !== 0)
+    ? cook_book_contents.appendChild(recipeCardTwo(recipeData))
+    : cook_book_contents.appendChild(resultEmpty("my_cookbook"));
   cook_book_container.appendChild(cook_book_text);
   cook_book_container.appendChild(cook_book_contents);
 

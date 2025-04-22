@@ -1,3 +1,5 @@
+import emptyImg from "/src/assets/images/empty_searched.svg";
+
 export function handleError(error, functionName) {
   console.error(`Error in ${functionName}:`, error.message || error);
 }
@@ -79,4 +81,26 @@ export function formatFirebaseTimestamp(timestamp) {
     console.error("Error formatting timestamp:", error);
     return "Invalid Date";
   }
+}
+
+export function resultEmpty(page) {
+  const empty_searched_container = document.createElement("div");
+  const empty_img = document.createElement("img");
+  const empty_text = document.createElement("p");
+
+  empty_searched_container.setAttribute("class", "empty__searched--container");
+
+  empty_img.src = emptyImg;
+  empty_img.style.width = "256px";
+  empty_img.style.height = "256px";
+  (page === "my_cookbook")
+   ? empty_text.textContent =
+      "Your cookbook is empty. Add a recipe to begin your culinary journey!"
+   : empty_text.textContent =
+      "No recipes found. Try checking your spelling or using different keywords."
+
+  empty_searched_container.appendChild(empty_img);
+  empty_searched_container.appendChild(empty_text);
+
+  return empty_searched_container;
 }
