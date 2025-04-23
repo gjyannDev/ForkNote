@@ -19,10 +19,15 @@ import {
   updateCustomRecipe,
   deleteCustomRecipe,
   getSearchedMealById,
-  getRealTimeRecipesData
+  getRealTimeRecipesData,
+  getMealDbListOfCategories,
 } from "./components/recipesApi";
 import MyCookBook from "./components/myCookBook";
-import { extractIngredients, renderRecipeCards} from "./components/utils";
+import {
+  extractIngredients,
+  renderRecipeCards,
+  getCategoryDropDownValues,
+} from "./components/utils";
 
 const header__container = document.querySelector(".header__container");
 const search_bar_section = document.querySelector(".section--searchbar");
@@ -148,6 +153,7 @@ footer_container.insertBefore(Footer(), footer_contents);
 //Open modal for edit, delete, and add recipe
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest("[data-modal-btn]");
+  const all_categories = await getMealDbListOfCategories();
 
   if (!btn) return;
 
@@ -157,7 +163,9 @@ document.addEventListener("click", async (e) => {
     const add_modal_container = document.getElementById(
       "add__modal--container"
     );
-    add_modal_container.replaceChildren(Modal("add modal"));
+    add_modal_container.replaceChildren(
+      Modal("add modal", [], getCategoryDropDownValues(all_categories))
+    );
 
     showModal("add__modal");
   } else if (selected_modal === "edit_recipe") {
@@ -174,7 +182,9 @@ document.addEventListener("click", async (e) => {
       return;
     }
 
-    edit_modal_container.replaceChildren(Modal("edit modal", recipe));
+    edit_modal_container.replaceChildren(
+      Modal("edit modal", recipe, getCategoryDropDownValues(all_categories))
+    );
 
     showModal("edit__modal");
   } else if (
@@ -342,6 +352,8 @@ document.addEventListener("click", async (e) => {
 
     searched_recipe = await getSearchedMealById(searched_recipe_id);
 
+    console.log(searched_recipe);
+
     //TODO: Create a page in which the user can see the recipe details etc..
   }
 
@@ -357,6 +369,7 @@ document.addEventListener("click", async (e) => {
       acc["ingredients"] = ingredients.toString();
       acc["source"] = "searched";
       acc["notes"] = "";
+      acc["mealId"] = curr.idMeal;
 
       return acc;
     }, {});

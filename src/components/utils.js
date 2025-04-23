@@ -1,6 +1,8 @@
 import emptyImg from "/src/assets/images/empty_searched.svg";
 import MyCookBook from "./myCookBook";
 import { recipeCardTwo } from "./recipeCard";
+import { getAllCustomRecipes } from "./recipesApi";
+import { getMealDbListOfCategories } from "./recipesApi";
 
 export function handleError(error, functionName) {
   console.error(`Error in ${functionName}:`, error.message || error);
@@ -133,19 +135,40 @@ export function renderRecipeCards(recipeData) {
     const cardContainer = document.querySelector(".cook__book--contents");
     const oldCards = cardContainer.querySelectorAll("#recipe__card");
     const card = cardContainer.querySelector("#card__main--container");
-    const empty_card = cardContainer.querySelector(".empty__searched--container");
-    
-    if (card) card.remove()
-    if (empty_card) empty_card.remove()
+    const empty_card = cardContainer.querySelector(
+      ".empty__searched--container"
+    );
+
+    if (card) card.remove();
+    if (empty_card) empty_card.remove();
     if (oldCards.length) {
-      oldCards.forEach(card => card.remove());
+      oldCards.forEach((card) => card.remove());
     }
 
-    const result = (recipeData.length !== 0)
-    ? recipeCardTwo(recipeData)
-    : resultEmpty("my_cookbook");
+    const result =
+      recipeData.length !== 0
+        ? recipeCardTwo(recipeData)
+        : resultEmpty("my_cookbook");
 
     cardContainer.appendChild(result);
   }, 1000);
 }
 
+export async function getSearchedIdFromCustomRecipe() {
+  const all_recipe = await getAllCustomRecipes();
+
+  return all_recipe.map((recipe) => recipe.mealId);
+}
+
+export function getCategoryDropDownValues(allCategories) {
+  const filtered_category = allCategories.categories.map(
+    (category) => category.strCategory
+  );
+
+  const categories = filtered_category.reduce((acc, curr, i) => {
+    acc.push({ value: curr, label: curr });
+    return acc;
+  }, []);
+
+  return categories;
+}

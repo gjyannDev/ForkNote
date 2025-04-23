@@ -1,5 +1,6 @@
 import timeImg from "/src/assets/icons/bx-time.svg";
 import { formatFirebaseTimestamp } from "./utils";
+import { getSearchedIdFromCustomRecipe } from "./utils";
 
 export function recipeCardOne(sectionName, recipesData) {
   const card_main_container = document.createElement("div");
@@ -123,6 +124,9 @@ export function recipeCardTwo(allRecipeData) {
     edit_btn.textContent = "Edit";
     delete_btn.textContent = "Delete";
     remove_btn.textContent = "Remove";
+    edit_btn.style.cursor = "pointer";
+    delete_btn.style.cursor = "pointer";
+    remove_btn.style.cursor = "pointer";
 
     date_time_container.appendChild(time_img);
     date_time_container.appendChild(recipe_date_created);

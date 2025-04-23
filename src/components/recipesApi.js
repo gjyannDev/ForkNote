@@ -60,8 +60,7 @@ export async function getRealTimeRecipesData(renderFn) {
         ...doc.data(),
       }));
 
-      renderFn(real_time_recipes)
-
+      renderFn(real_time_recipes);
     });
   } catch (error) {
     handleError(error, "getRealTimeRecipesData");
@@ -92,7 +91,6 @@ export async function getRecipeById(recipeId) {
 
 export async function deleteCustomRecipe(recipeId) {
   try {
-    console.log(recipeId);
     const doc_ref = doc(col_ref, recipeId);
     const res = await deleteDoc(doc_ref);
 
@@ -112,5 +110,18 @@ export async function getSearchedMealById(recipeMealId) {
     return data;
   } catch (error) {
     handleError(error, "getSearchedMealById");
+  }
+}
+
+export async function getMealDbListOfCategories() {
+  try {
+    const res = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/categories.php"
+    );
+    const data = res.json()
+
+    return data;
+  } catch (error) {
+    handleError(error, "getMealDbCategory");
   }
 }

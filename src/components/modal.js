@@ -12,7 +12,7 @@ export function displayRecipeRemoval(delType) {
 
   del_main_container.setAttribute("class", "del__main--container");
   grouped_btn_container.setAttribute("class", "del__btn--container");
-  del_contents_container.setAttribute('class', "del__contents--container");
+  del_contents_container.setAttribute("class", "del__contents--container");
   cancel_btn.setAttribute("class", "cancel__btn--modal modal__btn--secondary");
   cancel_btn.setAttribute("type", "button");
   cancel_btn.setAttribute("data-modal-cancel", "cancel__del--btn");
@@ -60,7 +60,7 @@ export function modalHeader(modalType) {
   return modal_header_container;
 }
 
-export default function Modal(modalType, recipe = []) {
+export default function Modal(modalType, recipe = [], categoriesList = []) {
   const recipe_form_container = document.createElement("div");
   const recipe_form = document.createElement("form");
   const step_one_container = document.createElement("div");
@@ -75,6 +75,8 @@ export default function Modal(modalType, recipe = []) {
   const next_btn = document.createElement("button");
   const add_recipe_btn = document.createElement("button");
   const back_btn = document.createElement("button");
+
+  console.log(categoriesList);
 
   recipe_form_container.setAttribute("class", "recipe__form--container");
   recipe_form.setAttribute(
@@ -134,11 +136,8 @@ export default function Modal(modalType, recipe = []) {
     step_one_inputs_container.appendChild(
       generateInput("Image URL", "input", "url")
     );
-    //TODO: Get all of the category and append it on here
     step_one_inputs_container.appendChild(
-      generateInput("Category", "select", "category", [
-        { value: "low", label: "Chicken" },
-      ])
+      generateInput("Category", "select", "category", categoriesList)
     );
   } else if (modalType === "edit modal") {
     step_one_inputs_container.appendChild(
@@ -147,13 +146,12 @@ export default function Modal(modalType, recipe = []) {
     step_one_inputs_container.appendChild(
       generateInput("Image URL", "input", "url", [], recipe.url)
     );
-    //TODO: Get all of the category and append it on here
     step_one_inputs_container.appendChild(
       generateInput(
         "Category",
         "select",
         "category",
-        [{ value: "low", label: "Chicken" }],
+        categoriesList,
         recipe.category
       )
     );
