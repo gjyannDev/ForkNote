@@ -1,7 +1,7 @@
 import { generateInput, resultEmpty } from "./utils";
 import { recipeCardTwo } from "./recipeCard";
 
-function myCookBookFilter() {
+function myCookBookFilter(categories) {
   const cook_book_filter_container = document.createElement("div");
 
   cook_book_filter_container.setAttribute("class", "recipe__filter--container");
@@ -11,7 +11,7 @@ function myCookBookFilter() {
       "Category",
       "select",
       "category",
-      [{ value: "low", label: "Vegan" }],
+      categories,
       "",
       false
     )
@@ -46,7 +46,7 @@ function myCookBookFilter() {
   return cook_book_filter_container;
 }
 
-export default function MyCookBook(recipeData) {
+export default function MyCookBook(recipeData, allCategories) {
   const cook_book_container = document.createElement("div");
   const cook_book_contents = document.createElement("div");
   const cook_book_text = document.createElement("h1");
@@ -56,7 +56,7 @@ export default function MyCookBook(recipeData) {
 
   cook_book_text.textContent = "My Cookbook";
 
-  cook_book_contents.appendChild(myCookBookFilter());
+  cook_book_contents.appendChild(myCookBookFilter(allCategories));
   (recipeData.length !== 0)
     ? cook_book_contents.appendChild(recipeCardTwo(recipeData))
     : cook_book_contents.appendChild(resultEmpty("my_cookbook"));

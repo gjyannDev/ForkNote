@@ -28,7 +28,7 @@ export function displayRecipeRemoval(delType) {
   del_img.src = delImg;
   del_img.style.width = "208px";
   del_img.style.height = "208px";
-
+  
   grouped_btn_container.appendChild(cancel_btn);
   grouped_btn_container.appendChild(confirm_btn);
   del_contents_container.appendChild(del_img);

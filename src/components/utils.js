@@ -1,8 +1,6 @@
 import emptyImg from "/src/assets/images/empty_searched.svg";
-import MyCookBook from "./myCookBook";
 import { recipeCardTwo } from "./recipeCard";
 import { getAllCustomRecipes } from "./recipesApi";
-import { getMealDbListOfCategories } from "./recipesApi";
 
 export function handleError(error, functionName) {
   console.error(`Error in ${functionName}:`, error.message || error);
@@ -29,10 +27,19 @@ export function generateInput(
   input.setAttribute("class", "input");
   textarea.setAttribute("class", "text__area");
   textarea.setAttribute("name", name);
-  select.setAttribute("class", "select");
   select.setAttribute("name", name);
   input.value = value;
   textarea.value = value;
+  if (name === "category") {
+    select.setAttribute("class", "select select__value--category");
+    select.setAttribute("data-select-action", name);
+  } else if (name === "source") {
+    select.setAttribute("class", "select select__value--source");
+    select.setAttribute("data-select-action", name);
+  } else if (name === "alphabetical") {
+    select.setAttribute("class", "select select__value--alphabetical");
+    select.setAttribute("data-select-action", name);
+  }
 
   inputLabel.textContent = labelName;
 

@@ -141,8 +141,11 @@ document.querySelectorAll("[data-nav-link]").forEach((link) => {
       content_section.replaceChildren(DefaultHomePageContent(recipes));
     } else if (link_text === "myCookbook") {
       const all_recipe = await getAllCustomRecipes();
+      const all_categories = await getMealDbListOfCategories();
 
-      content_section.replaceChildren(MyCookBook(all_recipe));
+      content_section.replaceChildren(
+        MyCookBook(all_recipe, getCategoryDropDownValues(all_categories))
+      );
     }
   });
 });
@@ -377,3 +380,28 @@ document.addEventListener("click", async (e) => {
     addCustomRecipe(params);
   }
 });
+
+//This line of code is responsible for trigger the filter
+document.addEventListener("change", (e) => {
+  const drop_down = e.target.closest("[data-select-action]");
+  const category_select = document.querySelector(".select__value--category");
+  const source_select = document.querySelector(".select__value--source");
+  const alphabetical_select = document.querySelector(".select__value--alphabetical");
+
+  if (!drop_down) return;
+  if (!category_select || !source_select || !alphabetical_select) return;
+
+  const category_value = category_select.value;
+  const source_value = source_select.value;
+  const alphabetical_value = alphabetical_select.value;
+  
+  const selected_action = drop_down.getAttribute("data-select-action");
+  
+  if (selected_action === "category") {
+    console.log(category_value)
+  } else if (selected_action === "source") {
+    console.log(source_value)
+  } else if (selected_action === "alphabetical") {
+    console.log(alphabetical_value)
+  }
+})
