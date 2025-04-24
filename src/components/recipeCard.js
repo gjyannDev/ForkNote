@@ -47,6 +47,7 @@ export function recipeCardOne(sectionName, recipesData) {
     recipe_date_created.textContent = recipe.dateCreated;
     recipe_description.textContent = recipe.description;
     save_btn.textContent = "Save";
+    save_btn.style.cursor = "pointer";
 
     if (sectionName === "Recently Added Custom Recipes") {
       date_time_container.appendChild(time_img_one);
