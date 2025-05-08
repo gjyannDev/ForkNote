@@ -37,7 +37,8 @@ The application allows users to:
 * I’m interested in learning web scraping to collect recipe data from the web, especially since most recipe APIs are either paid or come with limited usage.
 * When time permits, I plan to rebuild this application using the MERN stack and add more personalized features to better suit my own workflow and preferences.
 
-##Preview
+## Preview
+
 ![image](https://github.com/user-attachments/assets/d70c2827-bb9e-4b9e-940b-c0c3f4906e7a)
 ![image](https://github.com/user-attachments/assets/3cfa5d76-0bfe-4efb-816e-14f0fce042b0)
 ![image](https://github.com/user-attachments/assets/a58491fc-48a9-413a-8dee-a06913723186)
